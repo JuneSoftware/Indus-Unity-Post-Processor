@@ -6,6 +6,10 @@ inputs:
     required: true
     description: 'Build target platform'
     default: 'Android'
+  path: 
+    required: true
+    description: 'Project Settings path'
+    default: 'ProjectSettings/ProjectSettings.asset'
 runs:
   using: 'node12'
   main: 'dist/index.js'

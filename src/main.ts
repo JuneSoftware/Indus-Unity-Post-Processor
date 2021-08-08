@@ -21,25 +21,25 @@ export function exportProperties(yamlObject: any, platform: string): void {
       core.setOutput(scriptingDefineSymbolsKey, yamlObject[playerSettingsKey][scriptingDefineSymbolsKey]["7"].toString());
       core.setOutput(scriptingBackendKey, getScriptingBackendName(yamlObject[playerSettingsKey][scriptingBackendKey]["Android"]).toString());
       core.setOutput(architectureKey, getAndroidTargetArchitectures(yamlObject[playerSettingsKey]["AndroidTargetArchitectures"]).toString());
-      core.setOutput(versionKey, yamlObject[playerSettingsKey][bundleVersionKey].toString() + " #" + yamlObject[playerSettingsKey]["AndroidBundleVersionCode"].toString());
+      core.setOutput(versionKey, getVersionNo(yamlObject[playerSettingsKey][bundleVersionKey].toString(), yamlObject[playerSettingsKey]["AndroidBundleVersionCode"].toString()));
       break;
     case "StandaloneWindows64":
       core.setOutput(scriptingDefineSymbolsKey, yamlObject[playerSettingsKey][scriptingDefineSymbolsKey]["1"].toString());
       core.setOutput(scriptingBackendKey, getScriptingBackendName(yamlObject[playerSettingsKey][scriptingBackendKey]["Standalone"]).toString());
       core.setOutput(architectureKey, "64Bit");
-      core.setOutput(versionKey, yamlObject[playerSettingsKey][bundleVersionKey].toString() + " #" + yamlObject[playerSettingsKey][buildNumberKey]["Standalone"].toString());
+      core.setOutput(versionKey, getVersionNo(yamlObject[playerSettingsKey][bundleVersionKey].toString(), yamlObject[playerSettingsKey][buildNumberKey]["Standalone"].toString()));
       break;
     case "StandaloneLinux64":
       core.setOutput(scriptingDefineSymbolsKey, yamlObject[playerSettingsKey][scriptingDefineSymbolsKey]["1"].toString());
       core.setOutput(scriptingBackendKey, getScriptingBackendName(yamlObject[playerSettingsKey][scriptingBackendKey]["Standalone"]).toString());
       core.setOutput(architectureKey, "64Bit");
-      core.setOutput(versionKey, yamlObject[playerSettingsKey][bundleVersionKey].toString() + " #" + yamlObject[playerSettingsKey][buildNumberKey]["Standalone"].toString());
+      core.setOutput(versionKey, getVersionNo(yamlObject[playerSettingsKey][bundleVersionKey].toString(), yamlObject[playerSettingsKey][buildNumberKey]["Standalone"].toString()));
       break;
     case "iOS":
       core.setOutput(scriptingDefineSymbolsKey, yamlObject[playerSettingsKey][scriptingDefineSymbolsKey]["4"].toString());
       core.setOutput(scriptingBackendKey, "IL2CPP");
       core.setOutput(architectureKey, "64Bit");
-      core.setOutput(versionKey, yamlObject[playerSettingsKey][bundleVersionKey].toString() + " #" + yamlObject[playerSettingsKey][buildNumberKey]["iPhone"].toString());
+      core.setOutput(versionKey, getVersionNo(yamlObject[playerSettingsKey][bundleVersionKey].toString(), yamlObject[playerSettingsKey][buildNumberKey]["iPhone"].toString()));
       break;
     default:
       core.setOutput(scriptingDefineSymbolsKey, undefined);
@@ -48,6 +48,11 @@ export function exportProperties(yamlObject: any, platform: string): void {
       core.setOutput(versionKey, undefined)
       break;
   }
+}
+
+export function getVersionNo(version: string, build: string): string{
+  const seperator: string = " #";
+  return version.concat(seperator, build);
 }
 
 export function getScriptingBackendName(id: number): string {
@@ -72,8 +77,9 @@ export function getAndroidTargetArchitectures(id: number): string {
 
 async function run(): Promise<void> {
   try {
-    const platform: string = core.getInput('platform') //Get input parameter from YAML file(Actions workflow file)
-    const yamlFile = fs.readFileSync("ProjectSettings/ProjectSettings.asset", "utf8"); //Load the project settings file
+    const platform: string = core.getInput('platform'); //Get input parameter from YAML file(Actions workflow file)
+    const path: string = core.getInput('path'); //Get project settings file path
+    const yamlFile = fs.readFileSync(path, "utf8"); //Load the project settings file
     const yamlObject = yaml.parse(yamlFile); //Parse using YAML library
     exportProperties(yamlObject, platform);
   } catch (error) {
