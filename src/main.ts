@@ -18,7 +18,9 @@ export function exportProperties(yamlObject: any, platform: string): void {
     case 'Android':
       core.setOutput(
         scriptingDefineSymbolsKey,
-        yamlObject[playerSettingsKey][scriptingDefineSymbolsKey]['7'].toString()
+        getScriptDefineSymbols(
+          yamlObject[playerSettingsKey][scriptingDefineSymbolsKey]['7']
+        )
       )
       core.setOutput(
         scriptingBackendKey,
@@ -43,7 +45,9 @@ export function exportProperties(yamlObject: any, platform: string): void {
     case 'StandaloneWindows64':
       core.setOutput(
         scriptingDefineSymbolsKey,
-        yamlObject[playerSettingsKey][scriptingDefineSymbolsKey]['1'].toString()
+        getScriptDefineSymbols(
+          yamlObject[playerSettingsKey][scriptingDefineSymbolsKey]['1']
+        )
       )
       core.setOutput(
         scriptingBackendKey,
@@ -63,7 +67,9 @@ export function exportProperties(yamlObject: any, platform: string): void {
     case 'StandaloneLinux64':
       core.setOutput(
         scriptingDefineSymbolsKey,
-        yamlObject[playerSettingsKey][scriptingDefineSymbolsKey]['1'].toString()
+        getScriptDefineSymbols(
+          yamlObject[playerSettingsKey][scriptingDefineSymbolsKey]['1']
+        )
       )
       core.setOutput(
         scriptingBackendKey,
@@ -83,7 +89,9 @@ export function exportProperties(yamlObject: any, platform: string): void {
     case 'iOS':
       core.setOutput(
         scriptingDefineSymbolsKey,
-        yamlObject[playerSettingsKey][scriptingDefineSymbolsKey]['4'].toString()
+        getScriptDefineSymbols(
+          yamlObject[playerSettingsKey][scriptingDefineSymbolsKey]['4']
+        )
       )
       core.setOutput(scriptingBackendKey, 'IL2CPP')
       core.setOutput(architectureKey, '64Bit')
@@ -102,6 +110,10 @@ export function exportProperties(yamlObject: any, platform: string): void {
       core.setOutput(versionKey, undefined)
       break
   }
+}
+
+export function getScriptDefineSymbols(symbols: string): string {
+  return symbols.split(';').join(', ')
 }
 
 export function getVersionNo(version: string, build: string): string {

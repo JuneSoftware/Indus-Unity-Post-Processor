@@ -38,7 +38,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.getAndroidTargetArchitectures = exports.getScriptingBackendName = exports.getVersionNo = exports.exportProperties = void 0;
+exports.getAndroidTargetArchitectures = exports.getScriptingBackendName = exports.getVersionNo = exports.getScriptDefineSymbols = exports.exportProperties = void 0;
 const core = __importStar(__nccwpck_require__(186));
 const fs_1 = __importDefault(__nccwpck_require__(747));
 const yaml_1 = __importDefault(__nccwpck_require__(552));
@@ -54,25 +54,25 @@ function exportProperties(yamlObject, platform) {
     core.setOutput('playerSettings', yamlObject[playerSettingsKey].toString());
     switch (platform) {
         case 'Android':
-            core.setOutput(scriptingDefineSymbolsKey, yamlObject[playerSettingsKey][scriptingDefineSymbolsKey]['7'].toString());
+            core.setOutput(scriptingDefineSymbolsKey, getScriptDefineSymbols(yamlObject[playerSettingsKey][scriptingDefineSymbolsKey]['7']));
             core.setOutput(scriptingBackendKey, getScriptingBackendName(yamlObject[playerSettingsKey][scriptingBackendKey]['Android']).toString());
             core.setOutput(architectureKey, getAndroidTargetArchitectures(yamlObject[playerSettingsKey]['AndroidTargetArchitectures']).toString());
             core.setOutput(versionKey, getVersionNo(yamlObject[playerSettingsKey][bundleVersionKey].toString(), yamlObject[playerSettingsKey]['AndroidBundleVersionCode'].toString()));
             break;
         case 'StandaloneWindows64':
-            core.setOutput(scriptingDefineSymbolsKey, yamlObject[playerSettingsKey][scriptingDefineSymbolsKey]['1'].toString());
+            core.setOutput(scriptingDefineSymbolsKey, getScriptDefineSymbols(yamlObject[playerSettingsKey][scriptingDefineSymbolsKey]['1']));
             core.setOutput(scriptingBackendKey, getScriptingBackendName(yamlObject[playerSettingsKey][scriptingBackendKey]['Standalone']).toString());
             core.setOutput(architectureKey, '64Bit');
             core.setOutput(versionKey, getVersionNo(yamlObject[playerSettingsKey][bundleVersionKey].toString(), yamlObject[playerSettingsKey][buildNumberKey]['Standalone'].toString()));
             break;
         case 'StandaloneLinux64':
-            core.setOutput(scriptingDefineSymbolsKey, yamlObject[playerSettingsKey][scriptingDefineSymbolsKey]['1'].toString());
+            core.setOutput(scriptingDefineSymbolsKey, getScriptDefineSymbols(yamlObject[playerSettingsKey][scriptingDefineSymbolsKey]['1']));
             core.setOutput(scriptingBackendKey, getScriptingBackendName(yamlObject[playerSettingsKey][scriptingBackendKey]['Standalone']).toString());
             core.setOutput(architectureKey, '64Bit');
             core.setOutput(versionKey, getVersionNo(yamlObject[playerSettingsKey][bundleVersionKey].toString(), yamlObject[playerSettingsKey][buildNumberKey]['Standalone'].toString()));
             break;
         case 'iOS':
-            core.setOutput(scriptingDefineSymbolsKey, yamlObject[playerSettingsKey][scriptingDefineSymbolsKey]['4'].toString());
+            core.setOutput(scriptingDefineSymbolsKey, getScriptDefineSymbols(yamlObject[playerSettingsKey][scriptingDefineSymbolsKey]['4']));
             core.setOutput(scriptingBackendKey, 'IL2CPP');
             core.setOutput(architectureKey, '64Bit');
             core.setOutput(versionKey, getVersionNo(yamlObject[playerSettingsKey][bundleVersionKey].toString(), yamlObject[playerSettingsKey][buildNumberKey]['iPhone'].toString()));
@@ -86,6 +86,10 @@ function exportProperties(yamlObject, platform) {
     }
 }
 exports.exportProperties = exportProperties;
+function getScriptDefineSymbols(symbols) {
+    return symbols.split(';').join(', ');
+}
+exports.getScriptDefineSymbols = getScriptDefineSymbols;
 function getVersionNo(version, build) {
     const seperator = ' #';
     return version.concat(seperator, build);
