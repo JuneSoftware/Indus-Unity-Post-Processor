@@ -36,7 +36,8 @@ export function exportProperties(yamlObject: any, platform: string): void {
         versionKey,
         getVersionNo(
           yamlObject[playerSettingsKey][bundleVersionKey].toString(),
-          yamlObject[playerSettingsKey]['AndroidBundleVersionCode'].toString()
+          yamlObject[playerSettingsKey]['AndroidBundleVersionCode'].toString(),
+          ' #'
         )
       )
       break
@@ -58,7 +59,8 @@ export function exportProperties(yamlObject: any, platform: string): void {
         versionKey,
         getVersionNo(
           yamlObject[playerSettingsKey][bundleVersionKey].toString(),
-          yamlObject[playerSettingsKey][buildNumberKey]['Standalone'].toString()
+          '',
+          ''
         )
       )
       break
@@ -80,7 +82,8 @@ export function exportProperties(yamlObject: any, platform: string): void {
         versionKey,
         getVersionNo(
           yamlObject[playerSettingsKey][bundleVersionKey].toString(),
-          yamlObject[playerSettingsKey][buildNumberKey]['Standalone'].toString()
+          '',
+          ''
         )
       )
       break
@@ -97,7 +100,8 @@ export function exportProperties(yamlObject: any, platform: string): void {
         versionKey,
         getVersionNo(
           yamlObject[playerSettingsKey][bundleVersionKey].toString(),
-          yamlObject[playerSettingsKey][buildNumberKey]['iPhone'].toString()
+          yamlObject[playerSettingsKey][buildNumberKey]['iPhone'].toString(),
+          ' #'
         )
       )
       break
@@ -114,8 +118,11 @@ export function getScriptDefineSymbols(symbols: string): string {
   return symbols.split(';').join(', ')
 }
 
-export function getVersionNo(version: string, build: string): string {
-  const seperator = ' #'
+export function getVersionNo(
+  version: string,
+  build: string,
+  seperator: string
+): string {
   return version.concat(seperator, build)
 }
 
