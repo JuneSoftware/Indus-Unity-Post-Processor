@@ -51,32 +51,32 @@ const bundleVersionKey = "bundleVersion";
 const buildNumberKey = "buildNumber";
 const undefined = "Undefined";
 function exportProperties(yamlObject, platform) {
-    core.info(yamlObject[playerSettingsKey]);
-    core.setOutput("playerSettings", yamlObject[playerSettingsKey]);
+    core.info(yamlObject[playerSettingsKey].toString());
+    core.setOutput("playerSettings", yamlObject[playerSettingsKey].toString());
     switch (platform) {
         case "Android":
-            core.setOutput(scriptingDefineSymbolsKey, yamlObject[playerSettingsKey][scriptingDefineSymbolsKey]["7"]);
-            core.setOutput(scriptingBackendKey, getScriptingBackendName(yamlObject[playerSettingsKey][scriptingBackendKey]["Android"]));
-            core.setOutput(architectureKey, getAndroidTargetArchitectures(yamlObject[playerSettingsKey]["AndroidTargetArchitectures"]));
-            core.setOutput(versionKey, yamlObject[playerSettingsKey][bundleVersionKey] + " #" + yamlObject[playerSettingsKey]["AndroidBundleVersionCode"]);
+            core.setOutput(scriptingDefineSymbolsKey, yamlObject[playerSettingsKey][scriptingDefineSymbolsKey]["7"].toString());
+            core.setOutput(scriptingBackendKey, getScriptingBackendName(yamlObject[playerSettingsKey][scriptingBackendKey]["Android"]).toString());
+            core.setOutput(architectureKey, getAndroidTargetArchitectures(yamlObject[playerSettingsKey]["AndroidTargetArchitectures"]).toString());
+            core.setOutput(versionKey, yamlObject[playerSettingsKey][bundleVersionKey].toString() + " #" + yamlObject[playerSettingsKey]["AndroidBundleVersionCode"].toString());
             break;
         case "StandaloneWindows64":
-            core.setOutput(scriptingDefineSymbolsKey, yamlObject[playerSettingsKey][scriptingDefineSymbolsKey]["1"]);
-            core.setOutput(scriptingBackendKey, getScriptingBackendName(yamlObject[playerSettingsKey][scriptingBackendKey]["Standalone"]));
+            core.setOutput(scriptingDefineSymbolsKey, yamlObject[playerSettingsKey][scriptingDefineSymbolsKey]["1"].toString());
+            core.setOutput(scriptingBackendKey, getScriptingBackendName(yamlObject[playerSettingsKey][scriptingBackendKey]["Standalone"]).toString());
             core.setOutput(architectureKey, "64Bit");
-            core.setOutput(versionKey, yamlObject[playerSettingsKey][bundleVersionKey] + " #" + yamlObject[playerSettingsKey][buildNumberKey]["Standalone"]);
+            core.setOutput(versionKey, yamlObject[playerSettingsKey][bundleVersionKey].toString() + " #" + yamlObject[playerSettingsKey][buildNumberKey]["Standalone"].toString());
             break;
         case "StandaloneLinux64":
-            core.setOutput(scriptingDefineSymbolsKey, yamlObject[playerSettingsKey][scriptingDefineSymbolsKey]["1"]);
-            core.setOutput(scriptingBackendKey, getScriptingBackendName(yamlObject[playerSettingsKey][scriptingBackendKey]["Standalone"]));
+            core.setOutput(scriptingDefineSymbolsKey, yamlObject[playerSettingsKey][scriptingDefineSymbolsKey]["1"].toString());
+            core.setOutput(scriptingBackendKey, getScriptingBackendName(yamlObject[playerSettingsKey][scriptingBackendKey]["Standalone"]).toString());
             core.setOutput(architectureKey, "64Bit");
-            core.setOutput(versionKey, yamlObject[playerSettingsKey][bundleVersionKey] + " #" + yamlObject[playerSettingsKey][buildNumberKey]["Standalone"]);
+            core.setOutput(versionKey, yamlObject[playerSettingsKey][bundleVersionKey].toString() + " #" + yamlObject[playerSettingsKey][buildNumberKey]["Standalone"].toString());
             break;
         case "iOS":
-            core.setOutput(scriptingDefineSymbolsKey, yamlObject[playerSettingsKey][scriptingDefineSymbolsKey]["4"]);
+            core.setOutput(scriptingDefineSymbolsKey, yamlObject[playerSettingsKey][scriptingDefineSymbolsKey]["4"].toString());
             core.setOutput(scriptingBackendKey, "IL2CPP");
             core.setOutput(architectureKey, "64Bit");
-            core.setOutput(versionKey, yamlObject[playerSettingsKey][bundleVersionKey] + " #" + yamlObject[playerSettingsKey][buildNumberKey]["iPhone"]);
+            core.setOutput(versionKey, yamlObject[playerSettingsKey][bundleVersionKey].toString() + " #" + yamlObject[playerSettingsKey][buildNumberKey]["iPhone"].toString());
             break;
         default:
             core.setOutput(scriptingDefineSymbolsKey, undefined);
