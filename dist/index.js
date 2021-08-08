@@ -51,7 +51,6 @@ const bundleVersionKey = 'bundleVersion';
 const buildNumberKey = 'buildNumber';
 const undefined = 'Undefined';
 function exportProperties(yamlObject, platform) {
-    core.setOutput('playerSettings', yamlObject[playerSettingsKey].toString());
     switch (platform) {
         case 'Android':
             core.setOutput(scriptingDefineSymbolsKey, getScriptDefineSymbols(yamlObject[playerSettingsKey][scriptingDefineSymbolsKey]['7']));

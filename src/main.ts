@@ -12,8 +12,6 @@ const buildNumberKey = 'buildNumber'
 const undefined = 'Undefined'
 
 export function exportProperties(yamlObject: any, platform: string): void {
-  core.setOutput('playerSettings', yamlObject[playerSettingsKey].toString())
-
   switch (platform) {
     case 'Android':
       core.setOutput(
