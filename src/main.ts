@@ -1,5 +1,6 @@
 import * as core from '@actions/core'
 import fs from "fs";
+import yaml from "yaml";
 
 async function run(): Promise<void> {
   try {
