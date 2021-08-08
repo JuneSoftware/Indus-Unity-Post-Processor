@@ -1,16 +1,13 @@
 import * as core from '@actions/core'
-import {wait} from './wait'
+import fs from "fs";
 
 async function run(): Promise<void> {
   try {
-    const ms: string = core.getInput('milliseconds')
-    core.debug(`Updated waiting ${ms} milliseconds ...`) // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
+    //const ms: string = core.getInput('milliseconds')
 
-    core.debug(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
-    core.debug(new Date().toTimeString())
+    const yamlFile = fs.readFileSync("ProjectSettings/ProjectSettings.asset", "utf8");
+    core.info(yamlFile);
 
-    core.setOutput('time', new Date().toTimeString())
   } catch (error) {
     core.setFailed(error.message)
   }
