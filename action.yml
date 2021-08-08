@@ -1,11 +1,11 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'Unity Project Settings Reader'
+description: 'To read and output Unity project settings for the given platform'
+author: ''
 inputs:
-  milliseconds: # change this
+  platform: 
     required: true
-    description: 'input description here'
-    default: 'default value if applicable'
+    description: 'Build target platform'
+    default: 'Android'
 runs:
   using: 'node12'
   main: 'dist/index.js'
