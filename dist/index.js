@@ -93,20 +93,20 @@ function getVersionNo(version, build) {
 }
 exports.getVersionNo = getVersionNo;
 function getScriptingBackendName(id) {
-    if (id == 0)
+    if (id === 0)
         return "Mono";
-    else if (id == 1)
+    else if (id === 1)
         return "IL2CPP";
     else
         return undefined;
 }
 exports.getScriptingBackendName = getScriptingBackendName;
 function getAndroidTargetArchitectures(id) {
-    if (id == 1)
+    if (id === 1)
         return "ARMv7";
-    else if (id == 2)
+    else if (id === 2)
         return "ARM64";
-    else if (id == 3)
+    else if (id === 3)
         return "ARMv7, ARM64";
     else
         return undefined;
@@ -116,7 +116,8 @@ function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const platform = core.getInput('platform'); //Get input parameter from YAML file(Actions workflow file)
-            const yamlFile = fs_1.default.readFileSync(core.getInput('path'), "utf8"); //Load the project settings file
+            const path = core.getInput('path'); //Get project settings file path
+            const yamlFile = fs_1.default.readFileSync(path, "utf8"); //Load the project settings file
             const yamlObject = yaml_1.default.parse(yamlFile); //Parse using YAML library
             exportProperties(yamlObject, platform);
         }

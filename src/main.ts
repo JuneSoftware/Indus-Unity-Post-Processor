@@ -56,20 +56,20 @@ export function getVersionNo(version: string, build: string): string{
 }
 
 export function getScriptingBackendName(id: number): string {
-  if (id == 0)
+  if (id === 0)
     return "Mono";
-  else if (id == 1)
+  else if (id === 1)
     return "IL2CPP";
   else
     return undefined;
 }
 
 export function getAndroidTargetArchitectures(id: number): string {
-  if (id == 1)
+  if (id === 1)
     return "ARMv7";
-  else if (id == 2)
+  else if (id === 2)
     return "ARM64";
-  else if (id == 3)
+  else if (id === 3)
     return "ARMv7, ARM64";
   else
     return undefined;
