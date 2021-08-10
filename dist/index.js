@@ -67,17 +67,26 @@ function run() {
 }
 run(); //Execute the action
 function updateBuildPath(platform) {
-    const date = new Date();
-    const formattedDate = date
-        .toLocaleString('en-GB')
-        .split(':')
-        .join('_')
-        .split(',')
-        .join('');
-    const buildFolder = 'build';
-    const folderSeperator = '/';
-    const seperator = ' ';
-    fs_1.default.renameSync(buildFolder.concat(folderSeperator, platform, folderSeperator), buildFolder.concat(folderSeperator, platform, seperator, formattedDate));
+    // const date = new Date()
+    // const formattedDate = date
+    //   .toLocaleString('en-GB')
+    //   .split(':')
+    //   .join('-')
+    //   .split(',')
+    //   .join('')
+    // const buildFolder = 'build'
+    // const folderSeperator = '/'
+    // const seperator = ' '
+    // fs.renameSync(
+    //   buildFolder.concat(folderSeperator, platform),
+    //   buildFolder.concat(folderSeperator, platform, seperator, formattedDate)
+    // )
+    // fs.renameSync(
+    //   'build/Android/TestingObject.txt',
+    //   buildFolder.concat('build/Android/TestingObject1.txt')
+    // )
+    const textFile = fs_1.default.readFileSync('ProjectSettings/ProjectSettings.asset', 'utf8');
+    console.log(textFile);
 }
 function exportProperties(yamlObject, platform) {
     switch (platform) {
