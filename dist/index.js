@@ -50,6 +50,29 @@ const versionKey = 'versionNo';
 const bundleVersionKey = 'bundleVersion';
 const buildNumberKey = 'buildNumber';
 const undefined = 'Undefined';
+function run() {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const platform = core.getInput('platform'); //Get input parameter from YAML file(Actions workflow file)
+            const path = core.getInput('path'); //Get project settings file path
+            const yamlFile = fs_1.default.readFileSync(path, 'utf8'); //Load the project settings file
+            const yamlObject = yaml_1.default.parse(yamlFile); //Parse using YAML library
+            exportProperties(yamlObject, platform);
+            updateBuildPath(platform);
+        }
+        catch (error) {
+            core.setFailed(error.message);
+        }
+    });
+}
+run(); //Execute the action
+function updateBuildPath(platform) {
+    const date = new Date();
+    const formattedDate = date.toLocaleString('en-GB').replace(':', '-');
+    const buildFolder = 'build/';
+    const seperator = '_';
+    fs_1.default.renameSync(buildFolder.concat(platform), buildFolder.concat(platform, seperator, formattedDate));
+}
 function exportProperties(yamlObject, platform) {
     switch (platform) {
         case 'Android':
@@ -113,21 +136,6 @@ function getAndroidTargetArchitectures(id) {
         return undefined;
 }
 exports.getAndroidTargetArchitectures = getAndroidTargetArchitectures;
-function run() {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            const platform = core.getInput('platform'); //Get input parameter from YAML file(Actions workflow file)
-            const path = core.getInput('path'); //Get project settings file path
-            const yamlFile = fs_1.default.readFileSync(path, 'utf8'); //Load the project settings file
-            const yamlObject = yaml_1.default.parse(yamlFile); //Parse using YAML library
-            exportProperties(yamlObject, platform);
-        }
-        catch (error) {
-            core.setFailed(error.message);
-        }
-    });
-}
-run();
 
 
 /***/ }),

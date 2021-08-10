@@ -11,6 +11,32 @@ const bundleVersionKey = 'bundleVersion'
 const buildNumberKey = 'buildNumber'
 const undefined = 'Undefined'
 
+async function run(): Promise<void> {
+  try {
+    const platform: string = core.getInput('platform') //Get input parameter from YAML file(Actions workflow file)
+    const path: string = core.getInput('path') //Get project settings file path
+    const yamlFile = fs.readFileSync(path, 'utf8') //Load the project settings file
+    const yamlObject = yaml.parse(yamlFile) //Parse using YAML library
+    exportProperties(yamlObject, platform)
+    updateBuildPath(platform)
+  } catch (error) {
+    core.setFailed(error.message)
+  }
+}
+
+run() //Execute the action
+
+function updateBuildPath(platform: string): void {
+  const date = new Date()
+  const formattedDate = date.toLocaleString('en-GB').replace(':', '-')
+  const buildFolder = 'build/'
+  const seperator = '_'
+  fs.renameSync(
+    buildFolder.concat(platform),
+    buildFolder.concat(platform, seperator, formattedDate)
+  )
+}
+
 export function exportProperties(yamlObject: any, platform: string): void {
   switch (platform) {
     case 'Android':
@@ -138,17 +164,3 @@ export function getAndroidTargetArchitectures(id: number): string {
   else if (id === 3) return 'ARMv7, ARM64'
   else return undefined
 }
-
-async function run(): Promise<void> {
-  try {
-    const platform: string = core.getInput('platform') //Get input parameter from YAML file(Actions workflow file)
-    const path: string = core.getInput('path') //Get project settings file path
-    const yamlFile = fs.readFileSync(path, 'utf8') //Load the project settings file
-    const yamlObject = yaml.parse(yamlFile) //Parse using YAML library
-    exportProperties(yamlObject, platform)
-  } catch (error) {
-    core.setFailed(error.message)
-  }
-}
-
-run()
