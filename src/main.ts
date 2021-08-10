@@ -27,24 +27,25 @@ async function run(): Promise<void> {
 run() //Execute the action
 
 function updateBuildPath(platform: string): void {
-  // const date = new Date()
-  // const formattedDate = date
-  //   .toLocaleString('en-GB')
-  //   .split(':')
-  //   .join('-')
-  //   .split(',')
-  //   .join('')
-  // const buildFolder = 'build'
-  // const folderSeperator = '/'
-  // const seperator = ' '
+  const date = new Date()
+  const formattedDate = date
+    .toLocaleString('en-GB')
+    .split(':')
+    .join('-')
+    .split(',')
+    .join('')
+  const buildFolder = 'build'
+  const folderSeperator = '/'
+  const seperator = ' '
   // fs.renameSync(
   //   buildFolder.concat(folderSeperator, platform),
   //   buildFolder.concat(folderSeperator, platform, seperator, formattedDate)
   // )
-  // fs.renameSync(
-  //   'build/Android/TestingObject.txt',
-  //   buildFolder.concat('build/Android/TestingObject1.txt')
-  // )
+
+  fs.renameSync(
+    'build/Android',
+    'build/Android_1'
+  )
 
   const textFile = fs.readFileSync(
     'build/Android/TestingObject.txt',
