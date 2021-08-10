@@ -68,10 +68,16 @@ function run() {
 run(); //Execute the action
 function updateBuildPath(platform) {
     const date = new Date();
-    const formattedDate = date.toLocaleString('en-GB').replace(':', '-');
-    const buildFolder = 'build/';
-    const seperator = '_';
-    fs_1.default.renameSync(buildFolder.concat(platform), buildFolder.concat(platform, seperator, formattedDate));
+    const formattedDate = date
+        .toLocaleString('en-GB')
+        .split(':')
+        .join('_')
+        .split(',')
+        .join('');
+    const buildFolder = 'build';
+    const folderSeperator = '/';
+    const seperator = ' ';
+    fs_1.default.renameSync(buildFolder.concat(folderSeperator, platform, folderSeperator), buildFolder.concat(folderSeperator, platform, seperator, formattedDate));
 }
 function exportProperties(yamlObject, platform) {
     switch (platform) {

@@ -28,12 +28,18 @@ run() //Execute the action
 
 function updateBuildPath(platform: string): void {
   const date = new Date()
-  const formattedDate = date.toLocaleString('en-GB').replace(':', '-')
-  const buildFolder = 'build/'
-  const seperator = '_'
+  const formattedDate = date
+    .toLocaleString('en-GB')
+    .split(':')
+    .join('_')
+    .split(',')
+    .join('')
+  const buildFolder = 'build'
+  const folderSeperator = '/'
+  const seperator = ' '
   fs.renameSync(
-    buildFolder.concat(platform),
-    buildFolder.concat(platform, seperator, formattedDate)
+    buildFolder.concat(folderSeperator, platform, folderSeperator),
+    buildFolder.concat(folderSeperator, platform, seperator, formattedDate)
   )
 }
 
