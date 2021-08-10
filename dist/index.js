@@ -56,7 +56,7 @@ function exportProperties(yamlObject, platform) {
             core.setOutput(scriptingDefineSymbolsKey, getScriptDefineSymbols(yamlObject[playerSettingsKey][scriptingDefineSymbolsKey]['7']));
             core.setOutput(scriptingBackendKey, getScriptingBackendName(yamlObject[playerSettingsKey][scriptingBackendKey]['Android']).toString());
             core.setOutput(architectureKey, getAndroidTargetArchitectures(yamlObject[playerSettingsKey]['AndroidTargetArchitectures']).toString());
-            core.setOutput(versionKey, getVersionNo(yamlObject[playerSettingsKey][bundleVersionKey].toString(), yamlObject[playerSettingsKey]['AndroidBundleVersionCode'].toString(), " #"));
+            core.setOutput(versionKey, getVersionNo(yamlObject[playerSettingsKey][bundleVersionKey].toString(), yamlObject[playerSettingsKey]['AndroidBundleVersionCode'].toString(), ' #'));
             break;
         case 'StandaloneWindows64':
             core.setOutput(scriptingDefineSymbolsKey, getScriptDefineSymbols(yamlObject[playerSettingsKey][scriptingDefineSymbolsKey]['1']));
@@ -74,7 +74,7 @@ function exportProperties(yamlObject, platform) {
             core.setOutput(scriptingDefineSymbolsKey, getScriptDefineSymbols(yamlObject[playerSettingsKey][scriptingDefineSymbolsKey]['4']));
             core.setOutput(scriptingBackendKey, 'IL2CPP');
             core.setOutput(architectureKey, '64Bit');
-            core.setOutput(versionKey, getVersionNo(yamlObject[playerSettingsKey][bundleVersionKey].toString(), yamlObject[playerSettingsKey][buildNumberKey]['iPhone'].toString(), " #"));
+            core.setOutput(versionKey, getVersionNo(yamlObject[playerSettingsKey][bundleVersionKey].toString(), yamlObject[playerSettingsKey][buildNumberKey]['iPhone'].toString(), ' #'));
             break;
         default:
             core.setOutput(scriptingDefineSymbolsKey, undefined);
