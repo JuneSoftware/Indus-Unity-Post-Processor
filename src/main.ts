@@ -48,7 +48,7 @@ function updateBuildPath(platform: string): void {
   )
 
   const textFile = fs.readFileSync(
-    'build/Android/TestingObject.txt',
+    'build/Android_1/TestingObject.txt',
     'utf8'
   )
   console.log(textFile)

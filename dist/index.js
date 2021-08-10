@@ -82,7 +82,7 @@ function updateBuildPath(platform) {
     //   buildFolder.concat(folderSeperator, platform, seperator, formattedDate)
     // )
     fs_1.default.renameSync('build/Android', 'build/Android_1');
-    const textFile = fs_1.default.readFileSync('build/Android/TestingObject.txt', 'utf8');
+    const textFile = fs_1.default.readFileSync('build/Android_1/TestingObject.txt', 'utf8');
     console.log(textFile);
 }
 function exportProperties(yamlObject, platform) {
