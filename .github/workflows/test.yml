@@ -22,11 +22,10 @@ jobs:
           platform: 'Android'
           path: 'ProjectSettings/ProjectSettings.asset'
       - name: Sync to S3
-        uses: raulanatol/aws-s3-docker-action@master
+        uses: ochanje210/s3-upload-action@master
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: 'ap-south-1'
-          AWS_BUCKET_NAME: ${{ secrets.AWS_BUCKET_NAME }}
-          SOURCE: 'build'
-          TARGET: 'Android'
+          AWS_S3_BUCKET: ${{ secrets.AWS_BUCKET_NAME }}
+          SOURCE_DIR: 'build'
+          DEST_DIR: 'Android'

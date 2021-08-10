@@ -44,11 +44,11 @@ function updateBuildPath(platform: string): void {
 
   fs.renameSync(
     'build/Android',
-    'build/Android_2'
+    'build/Android_3'
   )
 
   const textFile = fs.readFileSync(
-    'build/Android_2/TestingObject.txt',
+    'build/Android_3/TestingObject.txt',
     'utf8'
   )
   console.log(textFile)
