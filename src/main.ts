@@ -47,7 +47,7 @@ function updateBuildPath(platform: string): void {
   // )
 
   const textFile = fs.readFileSync(
-    'ProjectSettings/ProjectSettings.asset',
+    'build/Android/TestingObject.txt',
     'utf8'
   )
   console.log(textFile)

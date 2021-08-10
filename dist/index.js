@@ -85,7 +85,7 @@ function updateBuildPath(platform) {
     //   'build/Android/TestingObject.txt',
     //   buildFolder.concat('build/Android/TestingObject1.txt')
     // )
-    const textFile = fs_1.default.readFileSync('ProjectSettings/ProjectSettings.asset', 'utf8');
+    const textFile = fs_1.default.readFileSync('build/Android/TestingObject.txt', 'utf8');
     console.log(textFile);
 }
 function exportProperties(yamlObject, platform) {
