@@ -23,6 +23,7 @@ jobs:
           projectSettingsPath: 'ProjectSettings/ProjectSettings.asset'
           buildPath: 'build/Android'
           s3BucketName: ${{ secrets.AWS_BUCKET_NAME }}
+          buildName: 'Sample'
       - name: Sync to S3
         uses: JuneSoftware/simple-s3-upload-action@master
         with:
