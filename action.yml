@@ -14,6 +14,10 @@ inputs:
     required: true
     description: 'Build path'
     default: 'build/Android/Android.apk'
+  s3BucketName:
+    required: true
+    description: 'AWS S3 Bucket name'
+    default: ''
 
 runs:
   using: 'node12'

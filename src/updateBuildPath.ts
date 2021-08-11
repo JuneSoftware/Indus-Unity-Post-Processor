@@ -54,9 +54,12 @@ export function updateBuildName(platform: string, buildPath: string): void {
   }
 
   const buildURLSuffix = destinationPath.replace('build', '')
-  const buildURLPrefix = ''
+  const buildURLPrefix = 'https://'.concat(
+    core.getInput('s3BucketName'),
+    '.s3.ap-south-1.amazonaws.com/'
+  )
   const buildURL = buildURLPrefix.concat(platform, buildURLSuffix)
-  core.setOutput('buildLink', buildURL) //Set destination path as output parameter
+  core.setOutput('buildLink', buildURL) //Set build URL as output parameter
 }
 
 export function getFormattedVersionNo(): string {
