@@ -246,7 +246,6 @@ function updateBuildName(platform, buildPath) {
     const buildURLPrefix = `https://${bucketName}.s3.ap-south-1.amazonaws.com/`;
     const buildURL = buildURLPrefix.concat(platform, buildURLSuffix);
     core.setOutput('buildLink', buildURL); //Set build URL as output parameter
-    core.info(buildURL);
 }
 exports.updateBuildName = updateBuildName;
 function getFormattedVersionNoForBinary() {
