@@ -42,6 +42,7 @@ exports.getAndroidTargetArchitectures = exports.getScriptingBackendName = export
 const core = __importStar(__nccwpck_require__(186));
 const fs_1 = __importDefault(__nccwpck_require__(747));
 const yaml_1 = __importDefault(__nccwpck_require__(552));
+const path_1 = __importDefault(__nccwpck_require__(622));
 const playerSettingsKey = 'PlayerSettings';
 const scriptingBackendKey = 'scriptingBackend';
 const scriptingDefineSymbolsKey = 'scriptingDefineSymbols';
@@ -55,11 +56,12 @@ function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const platform = core.getInput('platform'); //Get input parameter from YAML file(Actions workflow file)
-            const path = core.getInput('path'); //Get project settings file path
-            const yamlFile = fs_1.default.readFileSync(path, 'utf8'); //Load the project settings file
+            const projectSettingsPath = core.getInput('projectSettingsPath'); //Get project settings file path
+            const buildPath = core.getInput('buildPath'); //Get build path
+            const yamlFile = fs_1.default.readFileSync(projectSettingsPath, 'utf8'); //Load the project settings file
             const yamlObject = yaml_1.default.parse(yamlFile); //Parse using YAML library
             exportProperties(yamlObject, platform);
-            updateBuildPath(platform);
+            updateBuildPath(buildPath);
         }
         catch (error) {
             core.setFailed(error.message);
@@ -67,27 +69,35 @@ function run() {
     });
 }
 run(); //Execute the action
-function updateBuildPath(platform) {
-    const date = new Date();
-    const formattedDate = date
-        .toLocaleString('en-GB')
-        .split(':')
-        .join('-')
-        .split(',')
-        .join('')
-        .split('/')
-        .join('-')
-        .split(' ')
-        .join('_');
-    const buildFolder = 'build';
-    const folderSeperator = '/';
-    const seperator = ' ';
-    const sourcePath = buildFolder.concat(folderSeperator, platform);
-    const destinationPath = buildFolder.concat(folderSeperator, platform, seperator, formattedDate);
+function updateBuildPath(buildPath) {
+    // const date = new Date()
+    // const formattedDate = date
+    //   .toLocaleString('en-GB')
+    //   .split(':')
+    //   .join('-')
+    //   .split(',')
+    //   .join('')
+    //   .split('/')
+    //   .join('-')
+    //   .split(' ')
+    //   .join('_')
+    // const buildFolder = 'build'
+    // const folderSeperator = '/'
+    // const seperator = '_'
+    // const sourcePath = buildFolder.concat(folderSeperator, platform)
+    // const destinationPath = buildFolder.concat(
+    //   folderSeperator,
+    //   platform,
+    //   seperator,
+    //   formattedDate
+    // )
     //const buildURLPrefix = 'https://indus-builds.s3.ap-south-1.amazonaws.com/'
     //const buildURL = buildURLPrefix.concat()
-    fs_1.default.renameSync(sourcePath, destinationPath);
-    core.setOutput(buildPath, destinationPath);
+    // fs.renameSync(sourcePath, destinationPath)
+    // core.setOutput(buildPath, destinationPath)
+    core.info(path_1.default.dirname(buildPath));
+    core.info(path_1.default.sep);
+    core.info(path_1.default.basename(buildPath));
 }
 function exportProperties(yamlObject, platform) {
     switch (platform) {

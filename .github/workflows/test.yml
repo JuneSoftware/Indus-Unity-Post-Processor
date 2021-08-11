@@ -22,7 +22,7 @@ jobs:
           platform: 'Android'
           path: 'ProjectSettings/ProjectSettings.asset'
       - name: Sync to S3
-        uses: ochanje210/simple-s3-upload-action@master
+        uses: JuneSoftware/simple-s3-upload-action@master
         with:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

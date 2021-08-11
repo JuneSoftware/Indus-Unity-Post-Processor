@@ -1,6 +1,7 @@
 import * as core from '@actions/core'
 import fs from 'fs'
 import yaml from 'yaml'
+import path from 'path'
 
 const playerSettingsKey = 'PlayerSettings'
 const scriptingBackendKey = 'scriptingBackend'
@@ -15,11 +16,12 @@ const undefined = 'Undefined'
 async function run(): Promise<void> {
   try {
     const platform: string = core.getInput('platform') //Get input parameter from YAML file(Actions workflow file)
-    const path: string = core.getInput('path') //Get project settings file path
-    const yamlFile = fs.readFileSync(path, 'utf8') //Load the project settings file
+    const projectSettingsPath: string = core.getInput('projectSettingsPath') //Get project settings file path
+    const buildPath: string = core.getInput('buildPath') //Get build path
+    const yamlFile = fs.readFileSync(projectSettingsPath, 'utf8') //Load the project settings file
     const yamlObject = yaml.parse(yamlFile) //Parse using YAML library
     exportProperties(yamlObject, platform)
-    updateBuildPath(platform)
+    updateBuildPath(buildPath)
   } catch (error) {
     core.setFailed(error.message)
   }
@@ -27,33 +29,37 @@ async function run(): Promise<void> {
 
 run() //Execute the action
 
-function updateBuildPath(platform: string): void {
-  const date = new Date()
-  const formattedDate = date
-    .toLocaleString('en-GB')
-    .split(':')
-    .join('-')
-    .split(',')
-    .join('')
-    .split('/')
-    .join('-')
-    .split(' ')
-    .join('_')
-  const buildFolder = 'build'
-  const folderSeperator = '/'
-  const seperator = ' '
-  const sourcePath = buildFolder.concat(folderSeperator, platform)
-  const destinationPath = buildFolder.concat(
-    folderSeperator,
-    platform,
-    seperator,
-    formattedDate
-  )
+function updateBuildPath(buildPath: string): void {
+  // const date = new Date()
+  // const formattedDate = date
+  //   .toLocaleString('en-GB')
+  //   .split(':')
+  //   .join('-')
+  //   .split(',')
+  //   .join('')
+  //   .split('/')
+  //   .join('-')
+  //   .split(' ')
+  //   .join('_')
+  // const buildFolder = 'build'
+  // const folderSeperator = '/'
+  // const seperator = '_'
+  // const sourcePath = buildFolder.concat(folderSeperator, platform)
+  // const destinationPath = buildFolder.concat(
+  //   folderSeperator,
+  //   platform,
+  //   seperator,
+  //   formattedDate
+  // )
   //const buildURLPrefix = 'https://indus-builds.s3.ap-south-1.amazonaws.com/'
   //const buildURL = buildURLPrefix.concat()
-  fs.renameSync(sourcePath, destinationPath)
+  // fs.renameSync(sourcePath, destinationPath)
 
-  core.setOutput(buildPath, destinationPath)
+  // core.setOutput(buildPath, destinationPath)
+
+  core.info(path.dirname(buildPath))
+  core.info(path.sep)
+  core.info(path.basename(buildPath))
 }
 
 export function exportProperties(yamlObject: any, platform: string): void {
