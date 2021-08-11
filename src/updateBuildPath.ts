@@ -44,12 +44,12 @@ export function getFormattedVersionNoForBinary(): string {
 }
 
 export function getFormattedVersionNoForPath(): string {
-  return `( ${getStoredVersionNo()}-${getStoredVersionCode()} )`
+  return `(${getStoredVersionNo()}-${getStoredVersionCode()})`
 }
 
 export function getFormatterDateAndTime(): string {
   const date = new Date()
-  return `( ${date
+  return `(${date
     .toLocaleString('en-GB')
     .split(':')
     .join('-')
@@ -58,5 +58,5 @@ export function getFormatterDateAndTime(): string {
     .split('/')
     .join('-')
     .split(' ')
-    .join('_')} )`
+    .join('_')})`
 }

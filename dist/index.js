@@ -253,12 +253,12 @@ function getFormattedVersionNoForBinary() {
 }
 exports.getFormattedVersionNoForBinary = getFormattedVersionNoForBinary;
 function getFormattedVersionNoForPath() {
-    return `( ${exportProperties_1.getStoredVersionNo()}-${exportProperties_1.getStoredVersionCode()} )`;
+    return `(${exportProperties_1.getStoredVersionNo()}-${exportProperties_1.getStoredVersionCode()})`;
 }
 exports.getFormattedVersionNoForPath = getFormattedVersionNoForPath;
 function getFormatterDateAndTime() {
     const date = new Date();
-    return `( ${date
+    return `(${date
         .toLocaleString('en-GB')
         .split(':')
         .join('-')
@@ -267,7 +267,7 @@ function getFormatterDateAndTime() {
         .split('/')
         .join('-')
         .split(' ')
-        .join('_')} )`;
+        .join('_')})`;
 }
 exports.getFormatterDateAndTime = getFormatterDateAndTime;
 
