@@ -54,12 +54,9 @@ export function updateBuildName(platform: string, buildPath: string): void {
   }
 
   const buildURLSuffix = destinationPath.replace('build', '')
-  const buildURLPrefix = 'https://indus-builds.s3.ap-south-1.amazonaws.com/'
+  const buildURLPrefix = ''
   const buildURL = buildURLPrefix.concat(platform, buildURLSuffix)
-  core.info(buildURLSuffix)
-  core.info(buildURL)
-  //core.setOutput(buildPath, destinationPath)
-  //core.setOutput(buildPath, destinationPath) //Set destination path as output parameter
+  core.setOutput('buildLink', buildURL) //Set destination path as output parameter
 }
 
 export function getFormattedVersionNo(): string {
