@@ -77,7 +77,7 @@ function updateBuildPath(platform) {
     const buildFolder = 'build';
     const folderSeperator = '/';
     const seperator = ' ';
-    fs_1.default.renameSync(buildFolder.concat(folderSeperator, platform), buildFolder.concat(folderSeperator, platform, seperator, formattedDate));
+    fs_1.default.renameSync(buildFolder.concat(folderSeperator, platform), buildFolder.concat(folderSeperator, platform, '_4'));
     // fs.renameSync(
     //   'build/Android',
     //   'build/Android_3'

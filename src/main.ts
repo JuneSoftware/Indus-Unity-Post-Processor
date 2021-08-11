@@ -39,7 +39,7 @@ function updateBuildPath(platform: string): void {
   const seperator = ' '
   fs.renameSync(
     buildFolder.concat(folderSeperator, platform),
-    buildFolder.concat(folderSeperator, platform, seperator, formattedDate)
+    buildFolder.concat(folderSeperator, platform, '_4')
   )
 
   // fs.renameSync(
