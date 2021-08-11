@@ -58,6 +58,7 @@ function updateBuildPath(buildPath: string): void {
 
   // core.setOutput(buildPath, destinationPath)
 
+  core.info(buildPath)
   core.info(path.dirname(buildPath))
   core.info(path.sep)
   core.info(path.basename(buildPath))

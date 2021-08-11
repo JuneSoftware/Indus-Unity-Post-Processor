@@ -95,6 +95,7 @@ function updateBuildPath(buildPath) {
     //const buildURL = buildURLPrefix.concat()
     // fs.renameSync(sourcePath, destinationPath)
     // core.setOutput(buildPath, destinationPath)
+    core.info(buildPath);
     core.info(path_1.default.dirname(buildPath));
     core.info(path_1.default.sep);
     core.info(path_1.default.basename(buildPath));
