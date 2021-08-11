@@ -1,6 +1,107 @@
 require('./sourcemap-register.js');/******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ 181:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.getAndroidTargetArchitectures = exports.getScriptingBackendName = exports.getStoredVersionNo = exports.getVersionNo = exports.getScriptDefineSymbols = exports.exportProperties = void 0;
+const core = __importStar(__nccwpck_require__(186));
+const main_1 = __nccwpck_require__(109);
+let versionNo = '0.0.0';
+function exportProperties(yamlObject, platform) {
+    switch (platform) {
+        case 'Android':
+            core.setOutput(main_1.scriptingDefineSymbolsKey, getScriptDefineSymbols(yamlObject[main_1.playerSettingsKey][main_1.scriptingDefineSymbolsKey]['7']));
+            core.setOutput(main_1.scriptingBackendKey, getScriptingBackendName(yamlObject[main_1.playerSettingsKey][main_1.scriptingBackendKey]['Android']).toString());
+            core.setOutput(main_1.architectureKey, getAndroidTargetArchitectures(yamlObject[main_1.playerSettingsKey]['AndroidTargetArchitectures']).toString());
+            core.setOutput(main_1.versionKey, getVersionNo(yamlObject[main_1.playerSettingsKey][main_1.bundleVersionKey].toString(), yamlObject[main_1.playerSettingsKey]['AndroidBundleVersionCode'].toString(), ' #'));
+            break;
+        case 'StandaloneWindows64':
+            core.setOutput(main_1.scriptingDefineSymbolsKey, getScriptDefineSymbols(yamlObject[main_1.playerSettingsKey][main_1.scriptingDefineSymbolsKey]['1']));
+            core.setOutput(main_1.scriptingBackendKey, getScriptingBackendName(yamlObject[main_1.playerSettingsKey][main_1.scriptingBackendKey]['Standalone']).toString());
+            core.setOutput(main_1.architectureKey, '64Bit');
+            core.setOutput(main_1.versionKey, getVersionNo(yamlObject[main_1.playerSettingsKey][main_1.bundleVersionKey].toString(), '', ''));
+            break;
+        case 'StandaloneLinux64':
+            core.setOutput(main_1.scriptingDefineSymbolsKey, getScriptDefineSymbols(yamlObject[main_1.playerSettingsKey][main_1.scriptingDefineSymbolsKey]['1']));
+            core.setOutput(main_1.scriptingBackendKey, getScriptingBackendName(yamlObject[main_1.playerSettingsKey][main_1.scriptingBackendKey]['Standalone']).toString());
+            core.setOutput(main_1.architectureKey, '64Bit');
+            core.setOutput(main_1.versionKey, getVersionNo(yamlObject[main_1.playerSettingsKey][main_1.bundleVersionKey].toString(), '', ''));
+            break;
+        case 'iOS':
+            core.setOutput(main_1.scriptingDefineSymbolsKey, getScriptDefineSymbols(yamlObject[main_1.playerSettingsKey][main_1.scriptingDefineSymbolsKey]['4']));
+            core.setOutput(main_1.scriptingBackendKey, 'IL2CPP');
+            core.setOutput(main_1.architectureKey, '64Bit');
+            core.setOutput(main_1.versionKey, getVersionNo(yamlObject[main_1.playerSettingsKey][main_1.bundleVersionKey].toString(), yamlObject[main_1.playerSettingsKey][main_1.buildNumberKey]['iPhone'].toString(), ' #'));
+            break;
+        default:
+            core.setOutput(main_1.scriptingDefineSymbolsKey, main_1.undefined);
+            core.setOutput(main_1.scriptingBackendKey, main_1.undefined);
+            core.setOutput(main_1.architectureKey, main_1.undefined);
+            core.setOutput(main_1.versionKey, main_1.undefined);
+            break;
+    }
+}
+exports.exportProperties = exportProperties;
+function getScriptDefineSymbols(symbols) {
+    return symbols.split(';').join(', ');
+}
+exports.getScriptDefineSymbols = getScriptDefineSymbols;
+function getVersionNo(version, build, seperator) {
+    versionNo = version.concat(seperator, build);
+    return versionNo;
+}
+exports.getVersionNo = getVersionNo;
+function getStoredVersionNo() {
+    return versionNo;
+}
+exports.getStoredVersionNo = getStoredVersionNo;
+function getScriptingBackendName(id) {
+    if (id === 0)
+        return 'Mono';
+    else if (id === 1)
+        return 'IL2CPP';
+    else
+        return main_1.undefined;
+}
+exports.getScriptingBackendName = getScriptingBackendName;
+function getAndroidTargetArchitectures(id) {
+    if (id === 1)
+        return 'ARMv7';
+    else if (id === 2)
+        return 'ARM64';
+    else if (id === 3)
+        return 'ARMv7, ARM64';
+    else
+        return main_1.undefined;
+}
+exports.getAndroidTargetArchitectures = getAndroidTargetArchitectures;
+
+
+/***/ }),
+
 /***/ 109:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
@@ -38,20 +139,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.getAndroidTargetArchitectures = exports.getScriptingBackendName = exports.getVersionNo = exports.getScriptDefineSymbols = exports.exportProperties = void 0;
+exports.undefined = exports.buildNumberKey = exports.bundleVersionKey = exports.versionKey = exports.architectureKey = exports.scriptingDefineSymbolsKey = exports.scriptingBackendKey = exports.playerSettingsKey = void 0;
 const core = __importStar(__nccwpck_require__(186));
 const fs_1 = __importDefault(__nccwpck_require__(747));
 const yaml_1 = __importDefault(__nccwpck_require__(552));
-const path_1 = __importDefault(__nccwpck_require__(622));
-const playerSettingsKey = 'PlayerSettings';
-const scriptingBackendKey = 'scriptingBackend';
-const scriptingDefineSymbolsKey = 'scriptingDefineSymbols';
-const architectureKey = 'architecture';
-const versionKey = 'versionNo';
-const bundleVersionKey = 'bundleVersion';
-const buildNumberKey = 'buildNumber';
-const undefined = 'Undefined';
-let versionNo = '0.0.0';
+const exportProperties_1 = __nccwpck_require__(181);
+const updateBuildPath_1 = __nccwpck_require__(246);
+exports.playerSettingsKey = 'PlayerSettings';
+exports.scriptingBackendKey = 'scriptingBackend';
+exports.scriptingDefineSymbolsKey = 'scriptingDefineSymbols';
+exports.architectureKey = 'architecture';
+exports.versionKey = 'versionNo';
+exports.bundleVersionKey = 'bundleVersion';
+exports.buildNumberKey = 'buildNumber';
+exports.undefined = 'Undefined';
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -60,8 +161,8 @@ function run() {
             const buildPath = core.getInput('buildPath'); //Get build path
             const yamlFile = fs_1.default.readFileSync(projectSettingsPath, 'utf8'); //Load the project settings file
             const yamlObject = yaml_1.default.parse(yamlFile); //Parse using YAML library
-            exportProperties(yamlObject, platform);
-            updateBuildPath(buildPath);
+            exportProperties_1.exportProperties(yamlObject, platform);
+            updateBuildPath_1.updateBuildPath(buildPath);
         }
         catch (error) {
             core.setFailed(error.message);
@@ -69,6 +170,42 @@ function run() {
     });
 }
 run(); //Execute the action
+
+
+/***/ }),
+
+/***/ 246:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.updateBuildPath = void 0;
+const core = __importStar(__nccwpck_require__(186));
+const path_1 = __importDefault(__nccwpck_require__(622));
+const exportProperties_1 = __nccwpck_require__(181);
 function updateBuildPath(buildPath) {
     // const date = new Date()
     // const formattedDate = date
@@ -95,76 +232,14 @@ function updateBuildPath(buildPath) {
     //const buildURL = buildURLPrefix.concat()
     // fs.renameSync(sourcePath, destinationPath)
     // core.setOutput(buildPath, destinationPath)
+    core.info(exportProperties_1.getStoredVersionNo());
     core.info(buildPath);
     core.info(path_1.default.dirname(buildPath));
     core.info(path_1.default.sep);
     core.info(path_1.default.basename(buildPath));
     core.info(path_1.default.extname(buildPath));
 }
-function exportProperties(yamlObject, platform) {
-    switch (platform) {
-        case 'Android':
-            core.setOutput(scriptingDefineSymbolsKey, getScriptDefineSymbols(yamlObject[playerSettingsKey][scriptingDefineSymbolsKey]['7']));
-            core.setOutput(scriptingBackendKey, getScriptingBackendName(yamlObject[playerSettingsKey][scriptingBackendKey]['Android']).toString());
-            core.setOutput(architectureKey, getAndroidTargetArchitectures(yamlObject[playerSettingsKey]['AndroidTargetArchitectures']).toString());
-            core.setOutput(versionKey, getVersionNo(yamlObject[playerSettingsKey][bundleVersionKey].toString(), yamlObject[playerSettingsKey]['AndroidBundleVersionCode'].toString(), ' #'));
-            break;
-        case 'StandaloneWindows64':
-            core.setOutput(scriptingDefineSymbolsKey, getScriptDefineSymbols(yamlObject[playerSettingsKey][scriptingDefineSymbolsKey]['1']));
-            core.setOutput(scriptingBackendKey, getScriptingBackendName(yamlObject[playerSettingsKey][scriptingBackendKey]['Standalone']).toString());
-            core.setOutput(architectureKey, '64Bit');
-            core.setOutput(versionKey, getVersionNo(yamlObject[playerSettingsKey][bundleVersionKey].toString(), '', ''));
-            break;
-        case 'StandaloneLinux64':
-            core.setOutput(scriptingDefineSymbolsKey, getScriptDefineSymbols(yamlObject[playerSettingsKey][scriptingDefineSymbolsKey]['1']));
-            core.setOutput(scriptingBackendKey, getScriptingBackendName(yamlObject[playerSettingsKey][scriptingBackendKey]['Standalone']).toString());
-            core.setOutput(architectureKey, '64Bit');
-            core.setOutput(versionKey, getVersionNo(yamlObject[playerSettingsKey][bundleVersionKey].toString(), '', ''));
-            break;
-        case 'iOS':
-            core.setOutput(scriptingDefineSymbolsKey, getScriptDefineSymbols(yamlObject[playerSettingsKey][scriptingDefineSymbolsKey]['4']));
-            core.setOutput(scriptingBackendKey, 'IL2CPP');
-            core.setOutput(architectureKey, '64Bit');
-            core.setOutput(versionKey, getVersionNo(yamlObject[playerSettingsKey][bundleVersionKey].toString(), yamlObject[playerSettingsKey][buildNumberKey]['iPhone'].toString(), ' #'));
-            break;
-        default:
-            core.setOutput(scriptingDefineSymbolsKey, undefined);
-            core.setOutput(scriptingBackendKey, undefined);
-            core.setOutput(architectureKey, undefined);
-            core.setOutput(versionKey, undefined);
-            break;
-    }
-}
-exports.exportProperties = exportProperties;
-function getScriptDefineSymbols(symbols) {
-    return symbols.split(';').join(', ');
-}
-exports.getScriptDefineSymbols = getScriptDefineSymbols;
-function getVersionNo(version, build, seperator) {
-    versionNo = version.concat(seperator, build);
-    return versionNo;
-}
-exports.getVersionNo = getVersionNo;
-function getScriptingBackendName(id) {
-    if (id === 0)
-        return 'Mono';
-    else if (id === 1)
-        return 'IL2CPP';
-    else
-        return undefined;
-}
-exports.getScriptingBackendName = getScriptingBackendName;
-function getAndroidTargetArchitectures(id) {
-    if (id === 1)
-        return 'ARMv7';
-    else if (id === 2)
-        return 'ARM64';
-    else if (id === 3)
-        return 'ARMv7, ARM64';
-    else
-        return undefined;
-}
-exports.getAndroidTargetArchitectures = getAndroidTargetArchitectures;
+exports.updateBuildPath = updateBuildPath;
 
 
 /***/ }),
