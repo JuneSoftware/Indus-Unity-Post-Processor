@@ -226,17 +226,18 @@ function updateBuildPath(buildPath) {
         .split(' ')
         .join('_');
     const seperator = '_';
+    const updatedBuildPath = buildPath.concat(seperator, formattedDate);
+    fs_1.default.renameSync(buildPath, updatedBuildPath);
     //const buildURLPrefix = 'https://indus-builds.s3.ap-south-1.amazonaws.com/'
     //const buildURL = buildURLPrefix.concat()
-    fs_1.default.renameSync(buildPath, buildPath.concat(seperator, formattedDate));
     // core.setOutput(buildPath, destinationPath)
     core.info(exportProperties_1.getStoredVersionNo());
     core.info(exportProperties_1.getStoredVersionCode());
-    core.info(buildPath);
-    core.info(path_1.default.dirname(buildPath));
+    core.info(updatedBuildPath);
+    core.info(path_1.default.dirname(updatedBuildPath));
     core.info(path_1.default.sep);
-    core.info(path_1.default.basename(buildPath));
-    core.info(path_1.default.extname(buildPath));
+    core.info(path_1.default.basename(updatedBuildPath));
+    core.info(path_1.default.extname(updatedBuildPath));
 }
 exports.updateBuildPath = updateBuildPath;
 

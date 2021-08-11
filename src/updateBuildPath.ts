@@ -16,15 +16,18 @@ export function updateBuildPath(buildPath: string): void {
     .split(' ')
     .join('_')
   const seperator = '_'
-  //const buildURLPrefix = 'https://indus-builds.s3.ap-south-1.amazonaws.com/'
+
+  const updatedBuildPath = buildPath.concat(seperator, formattedDate)
+  fs.renameSync(buildPath, updatedBuildPath)
+
+    //const buildURLPrefix = 'https://indus-builds.s3.ap-south-1.amazonaws.com/'
   //const buildURL = buildURLPrefix.concat()
-  fs.renameSync(buildPath, buildPath.concat(seperator, formattedDate))
   // core.setOutput(buildPath, destinationPath)
   core.info(getStoredVersionNo())
   core.info(getStoredVersionCode())
-  core.info(buildPath)
-  core.info(path.dirname(buildPath))
+  core.info(updatedBuildPath)
+  core.info(path.dirname(updatedBuildPath))
   core.info(path.sep)
-  core.info(path.basename(buildPath))
-  core.info(path.extname(buildPath))
+  core.info(path.basename(updatedBuildPath))
+  core.info(path.extname(updatedBuildPath))
 }
