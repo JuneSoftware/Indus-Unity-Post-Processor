@@ -245,12 +245,10 @@ function updateBuildName(platform, buildPath) {
     switch (platform) {
         case 'Android':
             binaryExt = '.apk';
-            binaryPath = path_1.default
-                .join(buildPath, platform)
-                .concat(binaryExt);
+            binaryPath = path_1.default.join(buildPath, platform).concat(binaryExt);
             destinationPath = path_1.default
                 .join(buildPath, platform)
-                .concat(getFormattedVersionNo(), binaryExt);
+                .concat('_', getFormattedVersionNo(), binaryExt);
             fs_1.default.renameSync(binaryPath, destinationPath);
             break;
         case 'StandaloneWindows64':
@@ -262,9 +260,12 @@ function updateBuildName(platform, buildPath) {
         default:
             break;
     }
-    //const buildURLPrefix = 'https://indus-builds.s3.ap-south-1.amazonaws.com/'
-    //const buildURL = buildURLPrefix.concat()
-    // core.setOutput(buildPath, destinationPath)
+    const buildURLSuffix = destinationPath.replace('build', '');
+    const buildURLPrefix = 'https://indus-builds.s3.ap-south-1.amazonaws.com/';
+    const buildURL = buildURLPrefix.concat(platform, buildURLSuffix);
+    core.info(buildURLSuffix);
+    core.info(buildURL);
+    //core.setOutput(buildPath, destinationPath)
     //core.setOutput(buildPath, destinationPath) //Set destination path as output parameter
 }
 exports.updateBuildName = updateBuildName;

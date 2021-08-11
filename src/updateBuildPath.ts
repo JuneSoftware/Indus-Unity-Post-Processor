@@ -40,7 +40,7 @@ export function updateBuildName(platform: string, buildPath: string): void {
       binaryPath = path.join(buildPath, platform).concat(binaryExt)
       destinationPath = path
         .join(buildPath, platform)
-        .concat(getFormattedVersionNo(), binaryExt)
+        .concat('_', getFormattedVersionNo(), binaryExt)
       fs.renameSync(binaryPath, destinationPath)
       break
     case 'StandaloneWindows64':
@@ -52,9 +52,13 @@ export function updateBuildName(platform: string, buildPath: string): void {
     default:
       break
   }
-  //const buildURLPrefix = 'https://indus-builds.s3.ap-south-1.amazonaws.com/'
-  //const buildURL = buildURLPrefix.concat()
-  // core.setOutput(buildPath, destinationPath)
+
+  const buildURLSuffix = destinationPath.replace('build', '')
+  const buildURLPrefix = 'https://indus-builds.s3.ap-south-1.amazonaws.com/'
+  const buildURL = buildURLPrefix.concat(platform, buildURLSuffix)
+  core.info(buildURLSuffix)
+  core.info(buildURL)
+  //core.setOutput(buildPath, destinationPath)
   //core.setOutput(buildPath, destinationPath) //Set destination path as output parameter
 }
 
