@@ -20,14 +20,6 @@ export function updateBuildPath(buildPath: string, platform: string): void {
   const updatedBuildPath = buildPath.concat(seperator, formattedDate)
   fs.renameSync(buildPath, updatedBuildPath)
   updateBuildName(platform, updatedBuildPath)
-
-  core.info(getStoredVersionNo())
-  core.info(getStoredVersionCode())
-  core.info(updatedBuildPath)
-  core.info(path.dirname(updatedBuildPath))
-  core.info(path.sep)
-  core.info(path.basename(updatedBuildPath))
-  core.info(path.extname(updatedBuildPath))
 }
 
 export function updateBuildName(platform: string, buildPath: string): void {
@@ -60,6 +52,7 @@ export function updateBuildName(platform: string, buildPath: string): void {
   )
   const buildURL = buildURLPrefix.concat(platform, buildURLSuffix)
   core.setOutput('buildLink', buildURL) //Set build URL as output parameter
+  core.info(buildURL)
 }
 
 export function getFormattedVersionNo(): string {

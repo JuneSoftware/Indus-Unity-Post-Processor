@@ -229,13 +229,6 @@ function updateBuildPath(buildPath, platform) {
     const updatedBuildPath = buildPath.concat(seperator, formattedDate);
     fs_1.default.renameSync(buildPath, updatedBuildPath);
     updateBuildName(platform, updatedBuildPath);
-    core.info(exportProperties_1.getStoredVersionNo());
-    core.info(exportProperties_1.getStoredVersionCode());
-    core.info(updatedBuildPath);
-    core.info(path_1.default.dirname(updatedBuildPath));
-    core.info(path_1.default.sep);
-    core.info(path_1.default.basename(updatedBuildPath));
-    core.info(path_1.default.extname(updatedBuildPath));
 }
 exports.updateBuildPath = updateBuildPath;
 function updateBuildName(platform, buildPath) {
@@ -264,6 +257,7 @@ function updateBuildName(platform, buildPath) {
     const buildURLPrefix = 'https://'.concat(core.getInput('s3BucketName'), '.s3.ap-south-1.amazonaws.com/');
     const buildURL = buildURLPrefix.concat(platform, buildURLSuffix);
     core.setOutput('buildLink', buildURL); //Set build URL as output parameter
+    core.info(buildURL);
 }
 exports.updateBuildName = updateBuildName;
 function getFormattedVersionNo() {
