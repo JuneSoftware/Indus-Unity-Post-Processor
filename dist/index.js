@@ -261,10 +261,7 @@ function updateBuildName(platform, buildPath) {
 }
 exports.updateBuildName = updateBuildName;
 function getFormattedVersionNo() {
-    const versionNoId = 'V';
-    const seperator = '_';
-    const versionCodeId = 'VC';
-    return versionNoId.concat(exportProperties_1.getStoredVersionNo(), seperator, versionCodeId, exportProperties_1.getStoredVersionCode());
+    return `Ver( ${exportProperties_1.getStoredVersionNo()}-${exportProperties_1.getStoredVersionCode()} )`;
 }
 exports.getFormattedVersionNo = getFormattedVersionNo;
 

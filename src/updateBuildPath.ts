@@ -53,13 +53,5 @@ export function updateBuildName(platform: string, buildPath: string): void {
 }
 
 export function getFormattedVersionNo(): string {
-  const versionNoId = 'V'
-  const seperator = '_'
-  const versionCodeId = 'VC'
-  return versionNoId.concat(
-    getStoredVersionNo(),
-    seperator,
-    versionCodeId,
-    getStoredVersionCode()
-  )
+  return `Ver( ${getStoredVersionNo()}-${getStoredVersionCode()} )`
 }
