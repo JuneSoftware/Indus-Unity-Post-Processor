@@ -208,25 +208,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.getFormattedVersionNoForPath = exports.getFormattedVersionNoForBinary = exports.updateBuildName = exports.updateBuildPath = void 0;
+exports.getFormatterDateAndTime = exports.getFormattedVersionNoForPath = exports.getFormattedVersionNoForBinary = exports.updateBuildName = exports.updateBuildPath = void 0;
 const core = __importStar(__nccwpck_require__(186));
 const path_1 = __importDefault(__nccwpck_require__(622));
 const fs_1 = __importDefault(__nccwpck_require__(747));
 const exportProperties_1 = __nccwpck_require__(181);
 function updateBuildPath(buildPath, platform) {
-    const date = new Date();
-    const formattedDate = date
-        .toLocaleString('en-GB')
-        .split(':')
-        .join('-')
-        .split(',')
-        .join('')
-        .split('/')
-        .join('-')
-        .split(' ')
-        .join('_');
-    const seperator = '_';
-    const updatedBuildPath = buildPath.concat(seperator, formattedDate);
+    const updatedBuildPath = `${buildPath}_Ver${getFormattedVersionNoForPath()}___Date${getFormatterDateAndTime()}`;
     fs_1.default.renameSync(buildPath, updatedBuildPath);
     updateBuildName(platform, updatedBuildPath);
 }
@@ -265,9 +253,23 @@ function getFormattedVersionNoForBinary() {
 }
 exports.getFormattedVersionNoForBinary = getFormattedVersionNoForBinary;
 function getFormattedVersionNoForPath() {
-    return `Ver( ${exportProperties_1.getStoredVersionNo()}-${exportProperties_1.getStoredVersionCode()} )`;
+    return `( ${exportProperties_1.getStoredVersionNo()}-${exportProperties_1.getStoredVersionCode()} )`;
 }
 exports.getFormattedVersionNoForPath = getFormattedVersionNoForPath;
+function getFormatterDateAndTime() {
+    const date = new Date();
+    return `( ${date
+        .toLocaleString('en-GB')
+        .split(':')
+        .join('-')
+        .split(',')
+        .join('')
+        .split('/')
+        .join('-')
+        .split(' ')
+        .join('_')} )`;
+}
+exports.getFormatterDateAndTime = getFormatterDateAndTime;
 
 
 /***/ }),

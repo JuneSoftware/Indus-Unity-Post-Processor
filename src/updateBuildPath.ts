@@ -4,20 +4,7 @@ import fs from 'fs'
 import {getStoredVersionNo, getStoredVersionCode} from './exportProperties'
 
 export function updateBuildPath(buildPath: string, platform: string): void {
-  const date = new Date()
-  const formattedDate = date
-    .toLocaleString('en-GB')
-    .split(':')
-    .join('-')
-    .split(',')
-    .join('')
-    .split('/')
-    .join('-')
-    .split(' ')
-    .join('_')
-  const seperator = '_'
-
-  const updatedBuildPath = buildPath.concat(seperator, formattedDate)
+  const updatedBuildPath = `${buildPath}_Ver${getFormattedVersionNoForPath()}___Date${getFormatterDateAndTime()}`
   fs.renameSync(buildPath, updatedBuildPath)
   updateBuildName(platform, updatedBuildPath)
 }
@@ -57,5 +44,19 @@ export function getFormattedVersionNoForBinary(): string {
 }
 
 export function getFormattedVersionNoForPath(): string {
-  return `Ver( ${getStoredVersionNo()}-${getStoredVersionCode()} )`
+  return `( ${getStoredVersionNo()}-${getStoredVersionCode()} )`
+}
+
+export function getFormatterDateAndTime(): string {
+  const date = new Date()
+  return `( ${date
+    .toLocaleString('en-GB')
+    .split(':')
+    .join('-')
+    .split(',')
+    .join('')
+    .split('/')
+    .join('-')
+    .split(' ')
+    .join('_')} )`
 }
