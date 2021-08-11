@@ -208,7 +208,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.getFormattedVersionNo = exports.updateBuildName = exports.updateBuildPath = void 0;
+exports.getFormattedVersionNoForPath = exports.getFormattedVersionNoForBinary = exports.updateBuildName = exports.updateBuildPath = void 0;
 const core = __importStar(__nccwpck_require__(186));
 const path_1 = __importDefault(__nccwpck_require__(622));
 const fs_1 = __importDefault(__nccwpck_require__(747));
@@ -241,7 +241,7 @@ function updateBuildName(platform, buildPath) {
             binaryPath = path_1.default.join(buildPath, platform).concat(binaryExt);
             destinationPath = path_1.default
                 .join(buildPath, platform)
-                .concat('_', getFormattedVersionNo(), binaryExt);
+                .concat('_', getFormattedVersionNoForBinary(), binaryExt);
             fs_1.default.renameSync(binaryPath, destinationPath);
             break;
         case 'StandaloneWindows64':
@@ -260,10 +260,14 @@ function updateBuildName(platform, buildPath) {
     core.setOutput('buildLink', buildURL); //Set build URL as output parameter
 }
 exports.updateBuildName = updateBuildName;
-function getFormattedVersionNo() {
+function getFormattedVersionNoForBinary() {
+    return `V${exportProperties_1.getStoredVersionNo()}_VC${exportProperties_1.getStoredVersionCode()}`;
+}
+exports.getFormattedVersionNoForBinary = getFormattedVersionNoForBinary;
+function getFormattedVersionNoForPath() {
     return `Ver( ${exportProperties_1.getStoredVersionNo()}-${exportProperties_1.getStoredVersionCode()} )`;
 }
-exports.getFormattedVersionNo = getFormattedVersionNo;
+exports.getFormattedVersionNoForPath = getFormattedVersionNoForPath;
 
 
 /***/ }),

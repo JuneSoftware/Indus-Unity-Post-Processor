@@ -32,7 +32,7 @@ export function updateBuildName(platform: string, buildPath: string): void {
       binaryPath = path.join(buildPath, platform).concat(binaryExt)
       destinationPath = path
         .join(buildPath, platform)
-        .concat('_', getFormattedVersionNo(), binaryExt)
+        .concat('_', getFormattedVersionNoForBinary(), binaryExt)
       fs.renameSync(binaryPath, destinationPath)
       break
     case 'StandaloneWindows64':
@@ -52,6 +52,10 @@ export function updateBuildName(platform: string, buildPath: string): void {
   core.setOutput('buildLink', buildURL) //Set build URL as output parameter
 }
 
-export function getFormattedVersionNo(): string {
+export function getFormattedVersionNoForBinary(): string {
+  return `V${getStoredVersionNo()}_VC${getStoredVersionCode()}`
+}
+
+export function getFormattedVersionNoForPath(): string {
   return `Ver( ${getStoredVersionNo()}-${getStoredVersionCode()} )`
 }
