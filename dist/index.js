@@ -50,8 +50,8 @@ const architectureKey = 'architecture';
 const versionKey = 'versionNo';
 const bundleVersionKey = 'bundleVersion';
 const buildNumberKey = 'buildNumber';
-const buildPath = 'buildPath';
 const undefined = 'Undefined';
+let versionNo = '0.0.0';
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -98,6 +98,7 @@ function updateBuildPath(buildPath) {
     core.info(path_1.default.dirname(buildPath));
     core.info(path_1.default.sep);
     core.info(path_1.default.basename(buildPath));
+    core.info(path_1.default.extname(buildPath));
 }
 function exportProperties(yamlObject, platform) {
     switch (platform) {
@@ -139,7 +140,8 @@ function getScriptDefineSymbols(symbols) {
 }
 exports.getScriptDefineSymbols = getScriptDefineSymbols;
 function getVersionNo(version, build, seperator) {
-    return version.concat(seperator, build);
+    versionNo = version.concat(seperator, build);
+    return versionNo;
 }
 exports.getVersionNo = getVersionNo;
 function getScriptingBackendName(id) {

@@ -10,8 +10,9 @@ const architectureKey = 'architecture'
 const versionKey = 'versionNo'
 const bundleVersionKey = 'bundleVersion'
 const buildNumberKey = 'buildNumber'
-const buildPath = 'buildPath'
 const undefined = 'Undefined'
+
+let versionNo = '0.0.0'
 
 async function run(): Promise<void> {
   try {
@@ -60,6 +61,7 @@ function updateBuildPath(buildPath: string): void {
   core.info(path.dirname(buildPath))
   core.info(path.sep)
   core.info(path.basename(buildPath))
+  core.info(path.extname(buildPath))
 }
 
 export function exportProperties(yamlObject: any, platform: string): void {
@@ -174,7 +176,8 @@ export function getVersionNo(
   build: string,
   seperator: string
 ): string {
-  return version.concat(seperator, build)
+  versionNo = version.concat(seperator, build)
+  return versionNo
 }
 
 export function getScriptingBackendName(id: number): string {

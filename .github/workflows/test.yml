@@ -20,7 +20,8 @@ jobs:
         uses: ./
         with:
           platform: 'Android'
-          path: 'ProjectSettings/ProjectSettings.asset'
+          projectSettingsPath: 'ProjectSettings/ProjectSettings.asset'
+          buildPath: 'build/Android/Android.apk'
       - name: Sync to S3
         uses: JuneSoftware/simple-s3-upload-action@master
         with:
