@@ -49,6 +49,7 @@ const architectureKey = 'architecture';
 const versionKey = 'versionNo';
 const bundleVersionKey = 'bundleVersion';
 const buildNumberKey = 'buildNumber';
+const buildPath = 'buildPath';
 const undefined = 'Undefined';
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
@@ -75,11 +76,18 @@ function updateBuildPath(platform) {
         .split(',')
         .join('')
         .split('/')
-        .join('-');
+        .join('-')
+        .split(' ')
+        .join('_');
     const buildFolder = 'build';
     const folderSeperator = '/';
     const seperator = ' ';
-    fs_1.default.renameSync(buildFolder.concat(folderSeperator, platform), buildFolder.concat(folderSeperator, platform, seperator, formattedDate));
+    const sourcePath = buildFolder.concat(folderSeperator, platform);
+    const destinationPath = buildFolder.concat(folderSeperator, platform, seperator, formattedDate);
+    //const buildURLPrefix = 'https://indus-builds.s3.ap-south-1.amazonaws.com/'
+    //const buildURL = buildURLPrefix.concat()
+    fs_1.default.renameSync(sourcePath, destinationPath);
+    core.setOutput(buildPath, destinationPath);
 }
 function exportProperties(yamlObject, platform) {
     switch (platform) {

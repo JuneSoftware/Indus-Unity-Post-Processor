@@ -9,6 +9,7 @@ const architectureKey = 'architecture'
 const versionKey = 'versionNo'
 const bundleVersionKey = 'bundleVersion'
 const buildNumberKey = 'buildNumber'
+const buildPath = 'buildPath'
 const undefined = 'Undefined'
 
 async function run(): Promise<void> {
@@ -36,13 +37,23 @@ function updateBuildPath(platform: string): void {
     .join('')
     .split('/')
     .join('-')
+    .split(' ')
+    .join('_')
   const buildFolder = 'build'
   const folderSeperator = '/'
   const seperator = ' '
-  fs.renameSync(
-    buildFolder.concat(folderSeperator, platform),
-    buildFolder.concat(folderSeperator, platform, seperator, formattedDate)
+  const sourcePath = buildFolder.concat(folderSeperator, platform)
+  const destinationPath = buildFolder.concat(
+    folderSeperator,
+    platform,
+    seperator,
+    formattedDate
   )
+  //const buildURLPrefix = 'https://indus-builds.s3.ap-south-1.amazonaws.com/'
+  //const buildURL = buildURLPrefix.concat()
+  fs.renameSync(sourcePath, destinationPath)
+
+  core.setOutput(buildPath, destinationPath)
 }
 
 export function exportProperties(yamlObject: any, platform: string): void {
