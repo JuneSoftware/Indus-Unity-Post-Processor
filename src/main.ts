@@ -37,21 +37,21 @@ function updateBuildPath(platform: string): void {
   const buildFolder = 'build'
   const folderSeperator = '/'
   const seperator = ' '
+  fs.renameSync(
+    buildFolder.concat(folderSeperator, platform),
+    buildFolder.concat(folderSeperator, platform, seperator, formattedDate)
+  )
+
   // fs.renameSync(
-  //   buildFolder.concat(folderSeperator, platform),
-  //   buildFolder.concat(folderSeperator, platform, seperator, formattedDate)
+  //   'build/Android',
+  //   'build/Android_3'
   // )
 
-  fs.renameSync(
-    'build/Android',
-    'build/Android_3'
-  )
-
-  const textFile = fs.readFileSync(
-    'build/Android_3/TestingObject.txt',
-    'utf8'
-  )
-  console.log(textFile)
+  // const textFile = fs.readFileSync(
+  //   'build/Android_3/TestingObject.txt',
+  //   'utf8'
+  // )
+  // console.log(textFile)
 }
 
 export function exportProperties(yamlObject: any, platform: string): void {
