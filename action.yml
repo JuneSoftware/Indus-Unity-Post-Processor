@@ -18,6 +18,10 @@ inputs:
     required: true
     description: 'AWS S3 Bucket name'
     default: ''
+  buildName: 
+    required: true
+    description: 'Name of the build'
+    default: 'Sample'
 
 runs:
   using: 'node12'

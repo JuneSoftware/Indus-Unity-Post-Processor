@@ -13,12 +13,13 @@ export function updateBuildName(platform: string, buildPath: string): void {
   let destinationPath = buildPath
   let binaryExt: string
   let binaryPath: string
+  const buildName = core.getInput('buildName')
   switch (platform) {
     case 'Android':
       binaryExt = '.apk'
-      binaryPath = path.join(buildPath, platform).concat(binaryExt)
+      binaryPath = path.join(buildPath, buildName).concat(binaryExt)
       destinationPath = path
-        .join(buildPath, platform)
+        .join(buildPath, buildName)
         .concat('_', getFormattedVersionNoForBinary(), binaryExt)
       fs.renameSync(binaryPath, destinationPath)
       break
