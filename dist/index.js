@@ -26,10 +26,11 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.getAndroidTargetArchitectures = exports.getScriptingBackendName = exports.getStoredVersionNo = exports.getVersionNo = exports.getScriptDefineSymbols = exports.exportProperties = void 0;
+exports.getAndroidTargetArchitectures = exports.getScriptingBackendName = exports.getStoredVersionCode = exports.getStoredVersionNo = exports.getVersionNo = exports.getScriptDefineSymbols = exports.exportProperties = void 0;
 const core = __importStar(__nccwpck_require__(186));
 const main_1 = __nccwpck_require__(109);
 let versionNo = '0.0.0';
+let versionCode = '0';
 function exportProperties(yamlObject, platform) {
     switch (platform) {
         case 'Android':
@@ -70,14 +71,19 @@ function getScriptDefineSymbols(symbols) {
 }
 exports.getScriptDefineSymbols = getScriptDefineSymbols;
 function getVersionNo(version, build, seperator) {
-    versionNo = version.concat(seperator, build);
-    return versionNo;
+    versionNo = version;
+    versionCode = build;
+    return version.concat(seperator, build);
 }
 exports.getVersionNo = getVersionNo;
 function getStoredVersionNo() {
     return versionNo;
 }
 exports.getStoredVersionNo = getStoredVersionNo;
+function getStoredVersionCode() {
+    return versionCode;
+}
+exports.getStoredVersionCode = getStoredVersionCode;
 function getScriptingBackendName(id) {
     if (id === 0)
         return 'Mono';
@@ -205,34 +211,27 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.updateBuildPath = void 0;
 const core = __importStar(__nccwpck_require__(186));
 const path_1 = __importDefault(__nccwpck_require__(622));
+const fs_1 = __importDefault(__nccwpck_require__(747));
 const exportProperties_1 = __nccwpck_require__(181);
 function updateBuildPath(buildPath) {
-    // const date = new Date()
-    // const formattedDate = date
-    //   .toLocaleString('en-GB')
-    //   .split(':')
-    //   .join('-')
-    //   .split(',')
-    //   .join('')
-    //   .split('/')
-    //   .join('-')
-    //   .split(' ')
-    //   .join('_')
-    // const buildFolder = 'build'
-    // const folderSeperator = '/'
-    // const seperator = '_'
-    // const sourcePath = buildFolder.concat(folderSeperator, platform)
-    // const destinationPath = buildFolder.concat(
-    //   folderSeperator,
-    //   platform,
-    //   seperator,
-    //   formattedDate
-    // )
+    const date = new Date();
+    const formattedDate = date
+        .toLocaleString('en-GB')
+        .split(':')
+        .join('-')
+        .split(',')
+        .join('')
+        .split('/')
+        .join('-')
+        .split(' ')
+        .join('_');
+    const seperator = '_';
     //const buildURLPrefix = 'https://indus-builds.s3.ap-south-1.amazonaws.com/'
     //const buildURL = buildURLPrefix.concat()
-    // fs.renameSync(sourcePath, destinationPath)
+    fs_1.default.renameSync(buildPath, buildPath.concat(seperator, formattedDate));
     // core.setOutput(buildPath, destinationPath)
     core.info(exportProperties_1.getStoredVersionNo());
+    core.info(exportProperties_1.getStoredVersionCode());
     core.info(buildPath);
     core.info(path_1.default.dirname(buildPath));
     core.info(path_1.default.sep);

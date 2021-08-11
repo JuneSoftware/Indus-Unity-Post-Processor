@@ -11,6 +11,7 @@ import {
 } from './main'
 
 let versionNo = '0.0.0'
+let versionCode = '0'
 
 export function exportProperties(yamlObject: any, platform: string): void {
   switch (platform) {
@@ -124,12 +125,17 @@ export function getVersionNo(
   build: string,
   seperator: string
 ): string {
-  versionNo = version.concat(seperator, build)
-  return versionNo
+  versionNo = version
+  versionCode = build
+  return version.concat(seperator, build)
 }
 
 export function getStoredVersionNo(): string {
   return versionNo
+}
+
+export function getStoredVersionCode(): string {
+  return versionCode
 }
 
 export function getScriptingBackendName(id: number): string {
