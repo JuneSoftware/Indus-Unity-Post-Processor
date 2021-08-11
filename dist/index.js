@@ -73,20 +73,13 @@ function updateBuildPath(platform) {
         .split(':')
         .join('-')
         .split(',')
-        .join('');
+        .join('')
+        .split('/')
+        .join('-');
     const buildFolder = 'build';
     const folderSeperator = '/';
     const seperator = ' ';
-    fs_1.default.renameSync(buildFolder.concat(folderSeperator, platform), buildFolder.concat(folderSeperator, platform, '_4'));
-    // fs.renameSync(
-    //   'build/Android',
-    //   'build/Android_3'
-    // )
-    // const textFile = fs.readFileSync(
-    //   'build/Android_3/TestingObject.txt',
-    //   'utf8'
-    // )
-    // console.log(textFile)
+    fs_1.default.renameSync(buildFolder.concat(folderSeperator, platform), buildFolder.concat(folderSeperator, platform, seperator, formattedDate));
 }
 function exportProperties(yamlObject, platform) {
     switch (platform) {
