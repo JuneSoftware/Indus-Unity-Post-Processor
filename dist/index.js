@@ -168,7 +168,7 @@ function run() {
             const yamlFile = fs_1.default.readFileSync(projectSettingsPath, 'utf8'); //Load the project settings file
             const yamlObject = yaml_1.default.parse(yamlFile); //Parse using YAML library
             exportProperties_1.exportProperties(yamlObject, platform);
-            updateBuildPath_1.updateBuildPath(buildPath);
+            updateBuildPath_1.updateBuildPath(buildPath, platform);
         }
         catch (error) {
             core.setFailed(error.message);
@@ -208,12 +208,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.updateBuildPath = void 0;
+exports.getFormattedVersionNo = exports.updateBuildName = exports.updateBuildPath = void 0;
 const core = __importStar(__nccwpck_require__(186));
 const path_1 = __importDefault(__nccwpck_require__(622));
 const fs_1 = __importDefault(__nccwpck_require__(747));
 const exportProperties_1 = __nccwpck_require__(181);
-function updateBuildPath(buildPath) {
+function updateBuildPath(buildPath, platform) {
     const date = new Date();
     const formattedDate = date
         .toLocaleString('en-GB')
@@ -228,9 +228,7 @@ function updateBuildPath(buildPath) {
     const seperator = '_';
     const updatedBuildPath = buildPath.concat(seperator, formattedDate);
     fs_1.default.renameSync(buildPath, updatedBuildPath);
-    //const buildURLPrefix = 'https://indus-builds.s3.ap-south-1.amazonaws.com/'
-    //const buildURL = buildURLPrefix.concat()
-    // core.setOutput(buildPath, destinationPath)
+    updateBuildName(platform, updatedBuildPath);
     core.info(exportProperties_1.getStoredVersionNo());
     core.info(exportProperties_1.getStoredVersionCode());
     core.info(updatedBuildPath);
@@ -240,6 +238,43 @@ function updateBuildPath(buildPath) {
     core.info(path_1.default.extname(updatedBuildPath));
 }
 exports.updateBuildPath = updateBuildPath;
+function updateBuildName(platform, buildPath) {
+    let destinationPath = buildPath;
+    let binaryExt;
+    let binaryPath;
+    switch (platform) {
+        case 'Android':
+            binaryExt = '.apk';
+            binaryPath = path_1.default
+                .join(buildPath, platform)
+                .concat(binaryExt);
+            destinationPath = path_1.default
+                .join(buildPath, platform)
+                .concat(getFormattedVersionNo(), binaryExt);
+            fs_1.default.renameSync(binaryPath, destinationPath);
+            break;
+        case 'StandaloneWindows64':
+            break;
+        case 'StandaloneLinux64':
+            break;
+        case 'iOS':
+            break;
+        default:
+            break;
+    }
+    //const buildURLPrefix = 'https://indus-builds.s3.ap-south-1.amazonaws.com/'
+    //const buildURL = buildURLPrefix.concat()
+    // core.setOutput(buildPath, destinationPath)
+    //core.setOutput(buildPath, destinationPath) //Set destination path as output parameter
+}
+exports.updateBuildName = updateBuildName;
+function getFormattedVersionNo() {
+    const versionNoId = 'V';
+    const seperator = '_';
+    const versionCodeId = 'VC';
+    return versionNoId.concat(exportProperties_1.getStoredVersionNo(), seperator, versionCodeId, exportProperties_1.getStoredVersionCode());
+}
+exports.getFormattedVersionNo = getFormattedVersionNo;
 
 
 /***/ }),

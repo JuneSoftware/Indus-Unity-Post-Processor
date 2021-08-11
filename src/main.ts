@@ -21,7 +21,7 @@ async function run(): Promise<void> {
     const yamlFile = fs.readFileSync(projectSettingsPath, 'utf8') //Load the project settings file
     const yamlObject = yaml.parse(yamlFile) //Parse using YAML library
     exportProperties(yamlObject, platform)
-    updateBuildPath(buildPath)
+    updateBuildPath(buildPath, platform)
   } catch (error) {
     core.setFailed(error.message)
   }
