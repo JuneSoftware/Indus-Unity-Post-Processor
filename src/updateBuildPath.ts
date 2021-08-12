@@ -16,8 +16,8 @@ export function updateBuildName(platform: string, buildPath: string): void {
   let destinationPath = buildPath
   let binaryExt: string
   let binaryPath: string
-  let buildURLSuffix = destinationPath.replace('build', '')
-  let buildURLPrefix = `https://s3.console.aws.amazon.com/s3/buckets/${bucketName}?prefix=`
+  let buildURLSuffix = destinationPath.replace('build', '') //Fallback URL values
+  let buildURLPrefix = `https://s3.console.aws.amazon.com/s3/buckets/${bucketName}?prefix=` //Fallback URL values
 
   switch (platform) {
     case 'Android':
@@ -28,8 +28,8 @@ export function updateBuildName(platform: string, buildPath: string): void {
         .concat('_', getFormattedVersionNoForBinary(), binaryExt)
       fs.renameSync(binaryPath, destinationPath)
 
-      buildURLSuffix = destinationPath
       buildURLPrefix = `https://${bucketName}.s3.ap-south-1.amazonaws.com/`
+      buildURLSuffix = destinationPath.replace('build', '')
       break
     case 'StandaloneWindows64':
     case 'StandaloneLinux64':

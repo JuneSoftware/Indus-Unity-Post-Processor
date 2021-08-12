@@ -225,8 +225,8 @@ function updateBuildName(platform, buildPath) {
     let destinationPath = buildPath;
     let binaryExt;
     let binaryPath;
-    let buildURLSuffix = destinationPath.replace('build', '');
-    let buildURLPrefix = `https://s3.console.aws.amazon.com/s3/buckets/${bucketName}?prefix=`;
+    let buildURLSuffix = destinationPath.replace('build', ''); //Fallback URL values
+    let buildURLPrefix = `https://s3.console.aws.amazon.com/s3/buckets/${bucketName}?prefix=`; //Fallback URL values
     switch (platform) {
         case 'Android':
             binaryExt = '.apk';
@@ -235,8 +235,8 @@ function updateBuildName(platform, buildPath) {
                 .join(buildPath, buildName)
                 .concat('_', getFormattedVersionNoForBinary(), binaryExt);
             fs_1.default.renameSync(binaryPath, destinationPath);
-            buildURLSuffix = destinationPath;
             buildURLPrefix = `https://${bucketName}.s3.ap-south-1.amazonaws.com/`;
+            buildURLSuffix = destinationPath.replace('build', '');
             break;
         case 'StandaloneWindows64':
         case 'StandaloneLinux64':
