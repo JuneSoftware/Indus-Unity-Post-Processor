@@ -260,7 +260,7 @@ exports.getFormattedVersionNoForPath = getFormattedVersionNoForPath;
 function getFormatterDateAndTime() {
     const date = new Date();
     return `(${date
-        .toUTCString()
+        .toLocaleString('en-GB', { timeZone: 'UTC' })
         .split(':')
         .join('-')
         .split(',')
