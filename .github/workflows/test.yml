@@ -32,3 +32,7 @@ jobs:
           AWS_S3_BUCKET: ${{ secrets.AWS_BUCKET_NAME }}
           SOURCE_DIR: 'build'
           DEST_DIR: 'Android'
+      - name: List all files
+        id: listFiles
+        run: |
+          ls -R
