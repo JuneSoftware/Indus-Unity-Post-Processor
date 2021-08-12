@@ -32,7 +32,7 @@ export function updateBuildName(platform: string, buildPath: string): void {
       break
     case 'StandaloneWindows64':
     case 'StandaloneLinux64':
-      buildURLSuffix = `${buildURLSuffix}//&region=ap-south-1`
+      buildURLSuffix = `${buildURLSuffix}/&region=ap-south-1`
       break
     case 'iOS':
       //TODO: Need to add when required
@@ -42,6 +42,7 @@ export function updateBuildName(platform: string, buildPath: string): void {
   }
 
   const buildURL = buildURLPrefix.concat(platform, buildURLSuffix)
+  core.info(buildURL)
   core.setOutput('buildLink', buildURL) //Set build URL as output parameter
 }
 
