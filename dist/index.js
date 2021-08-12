@@ -235,6 +235,7 @@ function updateBuildName(platform, buildPath) {
                 .join(buildPath, buildName)
                 .concat('_', getFormattedVersionNoForBinary(), binaryExt);
             fs_1.default.renameSync(binaryPath, destinationPath);
+            buildURLSuffix = destinationPath;
             buildURLPrefix = `https://${bucketName}.s3.ap-south-1.amazonaws.com/`;
             break;
         case 'StandaloneWindows64':

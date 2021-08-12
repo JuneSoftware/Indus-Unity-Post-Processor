@@ -28,6 +28,7 @@ export function updateBuildName(platform: string, buildPath: string): void {
         .concat('_', getFormattedVersionNoForBinary(), binaryExt)
       fs.renameSync(binaryPath, destinationPath)
 
+      buildURLSuffix = destinationPath
       buildURLPrefix = `https://${bucketName}.s3.ap-south-1.amazonaws.com/`
       break
     case 'StandaloneWindows64':
