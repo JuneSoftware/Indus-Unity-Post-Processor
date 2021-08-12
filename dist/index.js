@@ -220,10 +220,13 @@ function updateBuildPath(buildPath, platform) {
 }
 exports.updateBuildPath = updateBuildPath;
 function updateBuildName(platform, buildPath) {
+    const bucketName = core.getInput('s3BucketName');
+    const buildName = core.getInput('buildName');
     let destinationPath = buildPath;
     let binaryExt;
     let binaryPath;
-    const buildName = core.getInput('buildName');
+    let buildURLSuffix = destinationPath.replace('build', '');
+    let buildURLPrefix = `https://s3.console.aws.amazon.com/s3/buckets/${bucketName}?prefix=`;
     switch (platform) {
         case 'Android':
             binaryExt = '.apk';
@@ -232,21 +235,20 @@ function updateBuildName(platform, buildPath) {
                 .join(buildPath, buildName)
                 .concat('_', getFormattedVersionNoForBinary(), binaryExt);
             fs_1.default.renameSync(binaryPath, destinationPath);
+            buildURLPrefix = `https://${bucketName}.s3.ap-south-1.amazonaws.com/`;
             break;
         case 'StandaloneWindows64':
-            break;
         case 'StandaloneLinux64':
+            buildURLSuffix = `${buildURLSuffix}//&region=ap-south-1`;
             break;
         case 'iOS':
+            //TODO: Need to add when required
             break;
         default:
             break;
     }
-    const buildURLSuffix = destinationPath.replace('build', '');
-    const bucketName = core.getInput('s3BucketName');
-    const buildURLPrefix = `https://${bucketName}.s3.ap-south-1.amazonaws.com/`;
     const buildURL = buildURLPrefix.concat(platform, buildURLSuffix);
-    core.setOutput('buildLink', buildURL); //Set build URL as output parameter
+    core.setOutput('buildLink', buildURL); //Set build URL as output parameter 
 }
 exports.updateBuildName = updateBuildName;
 function getFormattedVersionNoForBinary() {
@@ -254,7 +256,10 @@ function getFormattedVersionNoForBinary() {
 }
 exports.getFormattedVersionNoForBinary = getFormattedVersionNoForBinary;
 function getFormattedVersionNoForPath() {
-    return `(${exportProperties_1.getStoredVersionNo()}-${exportProperties_1.getStoredVersionCode()})`;
+    let versionCode = exportProperties_1.getStoredVersionCode();
+    if (versionCode !== '')
+        versionCode = `-${versionCode}`;
+    return `(${exportProperties_1.getStoredVersionNo()}${versionCode})`;
 }
 exports.getFormattedVersionNoForPath = getFormattedVersionNoForPath;
 function getFormatterDateAndTime() {

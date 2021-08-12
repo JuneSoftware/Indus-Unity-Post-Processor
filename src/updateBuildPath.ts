@@ -10,10 +10,15 @@ export function updateBuildPath(buildPath: string, platform: string): void {
 }
 
 export function updateBuildName(platform: string, buildPath: string): void {
+  const bucketName = core.getInput('s3BucketName')
+  const buildName = core.getInput('buildName')
+
   let destinationPath = buildPath
   let binaryExt: string
   let binaryPath: string
-  const buildName = core.getInput('buildName')
+  let buildURLSuffix = destinationPath.replace('build', '')
+  let buildURLPrefix = `https://s3.console.aws.amazon.com/s3/buckets/${bucketName}?prefix=`
+
   switch (platform) {
     case 'Android':
       binaryExt = '.apk'
@@ -22,20 +27,20 @@ export function updateBuildName(platform: string, buildPath: string): void {
         .join(buildPath, buildName)
         .concat('_', getFormattedVersionNoForBinary(), binaryExt)
       fs.renameSync(binaryPath, destinationPath)
+
+      buildURLPrefix = `https://${bucketName}.s3.ap-south-1.amazonaws.com/`
       break
     case 'StandaloneWindows64':
-      break
     case 'StandaloneLinux64':
+      buildURLSuffix = `${buildURLSuffix}//&region=ap-south-1`
       break
     case 'iOS':
+      //TODO: Need to add when required
       break
     default:
       break
   }
 
-  const buildURLSuffix = destinationPath.replace('build', '')
-  const bucketName = core.getInput('s3BucketName')
-  const buildURLPrefix = `https://${bucketName}.s3.ap-south-1.amazonaws.com/`
   const buildURL = buildURLPrefix.concat(platform, buildURLSuffix)
   core.setOutput('buildLink', buildURL) //Set build URL as output parameter
 }
@@ -45,7 +50,9 @@ export function getFormattedVersionNoForBinary(): string {
 }
 
 export function getFormattedVersionNoForPath(): string {
-  return `(${getStoredVersionNo()}-${getStoredVersionCode()})`
+  let versionCode = getStoredVersionCode()
+  if (versionCode !== '') versionCode = `-${versionCode}`
+  return `(${getStoredVersionNo()}${versionCode})`
 }
 
 export function getFormatterDateAndTime(): string {
