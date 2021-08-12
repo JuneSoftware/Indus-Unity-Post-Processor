@@ -260,7 +260,7 @@ exports.getFormattedVersionNoForPath = getFormattedVersionNoForPath;
 function getFormatterDateAndTime() {
     const date = new Date();
     return `(${date
-        .toLocaleString('en-GB')
+        .toUTCString()
         .split(':')
         .join('-')
         .split(',')

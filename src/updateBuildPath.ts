@@ -51,7 +51,7 @@ export function getFormattedVersionNoForPath(): string {
 export function getFormatterDateAndTime(): string {
   const date = new Date()
   return `(${date
-    .toLocaleString('en-GB')
+    .toUTCString()
     .split(':')
     .join('-')
     .split(',')
