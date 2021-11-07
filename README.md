@@ -1,4 +1,4 @@
-# Process and output build info
+# Process and Output build info
 **Input Parameters:** 
 - `platform` [Target build platform](https://docs.unity3d.com/ScriptReference/BuildTarget.html)
 - `projectSettingsPath` Path to ProjectSettings.asset file
