@@ -128,7 +128,7 @@ class iOS {
         return projectSettings['bundleVersion'].toString();
     }
     getBuildNo(projectSettings) {
-        return projectSettings['buildNumber'].toString();
+        return projectSettings['buildNumber']['iPhone'].toString();
     }
 }
 exports.iOS = iOS;
@@ -161,9 +161,8 @@ function parse(yamlFile, platform) {
 exports.parse = parse;
 function updateBuildNumber() {
     const projectSettings = yamlObject[playerSettingsKey];
-    projectSettings['AndroidBundleVersionCode'] =
-        Number(projectSettings['AndroidBundleVersionCode']) + 1;
-    projectSettings['buildNumber'] = Number(projectSettings['buildNumber']) + 1;
+    projectSettings['AndroidBundleVersionCode'] = Number(projectSettings['AndroidBundleVersionCode']) + 1;
+    projectSettings['buildNumber']['iPhone'] = Number(projectSettings['buildNumber']['iPhone']) + 1;
     yamlObject[playerSettingsKey] = projectSettings;
 }
 exports.updateBuildNumber = updateBuildNumber;

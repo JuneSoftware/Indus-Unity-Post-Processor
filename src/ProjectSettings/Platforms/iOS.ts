@@ -21,6 +21,6 @@ export class iOS implements PlatformInterface {
     return projectSettings['bundleVersion'].toString()
   }
   getBuildNo(projectSettings: any): string {
-    return projectSettings['buildNumber'].toString()
+    return projectSettings['buildNumber']['iPhone'].toString()
   }
 }
