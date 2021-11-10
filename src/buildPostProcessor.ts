@@ -1,12 +1,7 @@
 import * as core from '@actions/core'
 import path from 'path'
 import fs from 'fs'
-import {
-  getVersionNo,
-  getBuildNo,
-  updateBuildNumber,
-  printYamlFile
-} from './ProjectSettings/projectSettings'
+import {getVersionNo, getBuildNo} from './ProjectSettings/projectSettings'
 
 export function updateBuildPath(buildPath: string, platform: string): void {
   const updatedBuildPath = `${buildPath}_Ver${getFormattedVersionNoForPath()}___Date${getFormatterDateAndTime()}`
@@ -74,9 +69,4 @@ export function getFormatterDateAndTime(): string {
     .join('-')
     .split(' ')
     .join('_')})`
-}
-
-export function updateBuildNo(): void {
-  updateBuildNumber()
-  core.info(printYamlFile())
 }
