@@ -36,7 +36,7 @@ export function exportProperties(yamlObject: any, platform: string): void {
       )
       core.setOutput(
         versionKey,
-        getVersionNo(
+        getCombinedVersionNo(
           yamlObject[playerSettingsKey][bundleVersionKey].toString(),
           yamlObject[playerSettingsKey]['AndroidBundleVersionCode'].toString(),
           ' #'
@@ -59,7 +59,7 @@ export function exportProperties(yamlObject: any, platform: string): void {
       core.setOutput(architectureKey, '64Bit')
       core.setOutput(
         versionKey,
-        getVersionNo(
+        getCombinedVersionNo(
           yamlObject[playerSettingsKey][bundleVersionKey].toString(),
           '',
           ''
@@ -82,7 +82,7 @@ export function exportProperties(yamlObject: any, platform: string): void {
       core.setOutput(architectureKey, '64Bit')
       core.setOutput(
         versionKey,
-        getVersionNo(
+        getCombinedVersionNo(
           yamlObject[playerSettingsKey][bundleVersionKey].toString(),
           '',
           ''
@@ -100,7 +100,7 @@ export function exportProperties(yamlObject: any, platform: string): void {
       core.setOutput(architectureKey, '64Bit')
       core.setOutput(
         versionKey,
-        getVersionNo(
+        getCombinedVersionNo(
           yamlObject[playerSettingsKey][bundleVersionKey].toString(),
           yamlObject[playerSettingsKey][buildNumberKey]['iPhone'].toString(),
           ' #'
@@ -120,7 +120,7 @@ export function getScriptDefineSymbols(symbols: string): string {
   return symbols.split(';').join(', ')
 }
 
-export function getVersionNo(
+export function getCombinedVersionNo(
   version: string,
   build: string,
   seperator: string
