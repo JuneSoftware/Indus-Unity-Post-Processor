@@ -1,7 +1,7 @@
 import * as core from '@actions/core'
 import path from 'path'
 import fs from 'fs'
-import {getStoredVersionNo, getStoredVersionCode} from './exportProperties'
+import {getVersionNo, getBuildNo} from './ProjectSettings/projectSettings'
 
 export function updateBuildPath(buildPath: string, platform: string): void {
   const updatedBuildPath = `${buildPath}_Ver${getFormattedVersionNoForPath()}___Date${getFormatterDateAndTime()}`
@@ -48,13 +48,13 @@ export function updateBuildName(platform: string, buildPath: string): void {
 }
 
 export function getFormattedVersionNoForBinary(): string {
-  return `V${getStoredVersionNo()}_VC${getStoredVersionCode()}`
+  return `V${getVersionNo()}_VC${getBuildNo()}`
 }
 
 export function getFormattedVersionNoForPath(): string {
-  let versionCode = getStoredVersionCode()
+  let versionCode = getVersionNo()
   if (versionCode !== '') versionCode = `-${versionCode}`
-  return `(${getStoredVersionNo()}${versionCode})`
+  return `(${getVersionNo()}${versionCode})`
 }
 
 export function getFormatterDateAndTime(): string {
