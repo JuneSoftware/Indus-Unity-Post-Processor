@@ -281,7 +281,7 @@ function getFormattedVersionNoForBinary() {
 }
 exports.getFormattedVersionNoForBinary = getFormattedVersionNoForBinary;
 function getFormattedVersionNoForPath() {
-    let versionCode = projectSettings_1.getVersionNo();
+    let versionCode = projectSettings_1.getBuildNo();
     if (versionCode !== '')
         versionCode = `-${versionCode}`;
     return `(${projectSettings_1.getVersionNo()}${versionCode})`;

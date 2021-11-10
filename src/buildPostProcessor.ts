@@ -52,7 +52,7 @@ export function getFormattedVersionNoForBinary(): string {
 }
 
 export function getFormattedVersionNoForPath(): string {
-  let versionCode = getVersionNo()
+  let versionCode = getBuildNo()
   if (versionCode !== '') versionCode = `-${versionCode}`
   return `(${getVersionNo()}${versionCode})`
 }
