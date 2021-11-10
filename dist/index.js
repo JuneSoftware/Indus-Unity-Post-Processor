@@ -26,7 +26,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.getAndroidTargetArchitectures = exports.getScriptingBackendName = exports.getStoredVersionCode = exports.getStoredVersionNo = exports.getVersionNo = exports.getScriptDefineSymbols = exports.exportProperties = void 0;
+exports.getAndroidTargetArchitectures = exports.getScriptingBackendName = exports.getStoredVersionCode = exports.getStoredVersionNo = exports.getCombinedVersionNo = exports.getScriptDefineSymbols = exports.exportProperties = void 0;
 const core = __importStar(__nccwpck_require__(186));
 const main_1 = __nccwpck_require__(109);
 let versionNo = '0.0.0';
@@ -37,25 +37,25 @@ function exportProperties(yamlObject, platform) {
             core.setOutput(main_1.scriptingDefineSymbolsKey, getScriptDefineSymbols(yamlObject[main_1.playerSettingsKey][main_1.scriptingDefineSymbolsKey]['7']));
             core.setOutput(main_1.scriptingBackendKey, getScriptingBackendName(yamlObject[main_1.playerSettingsKey][main_1.scriptingBackendKey]['Android']).toString());
             core.setOutput(main_1.architectureKey, getAndroidTargetArchitectures(yamlObject[main_1.playerSettingsKey]['AndroidTargetArchitectures']).toString());
-            core.setOutput(main_1.versionKey, getVersionNo(yamlObject[main_1.playerSettingsKey][main_1.bundleVersionKey].toString(), yamlObject[main_1.playerSettingsKey]['AndroidBundleVersionCode'].toString(), ' #'));
+            core.setOutput(main_1.versionKey, getCombinedVersionNo(yamlObject[main_1.playerSettingsKey][main_1.bundleVersionKey].toString(), yamlObject[main_1.playerSettingsKey]['AndroidBundleVersionCode'].toString(), ' #'));
             break;
         case 'StandaloneWindows64':
             core.setOutput(main_1.scriptingDefineSymbolsKey, getScriptDefineSymbols(yamlObject[main_1.playerSettingsKey][main_1.scriptingDefineSymbolsKey]['1']));
             core.setOutput(main_1.scriptingBackendKey, getScriptingBackendName(yamlObject[main_1.playerSettingsKey][main_1.scriptingBackendKey]['Standalone']).toString());
             core.setOutput(main_1.architectureKey, '64Bit');
-            core.setOutput(main_1.versionKey, getVersionNo(yamlObject[main_1.playerSettingsKey][main_1.bundleVersionKey].toString(), '', ''));
+            core.setOutput(main_1.versionKey, getCombinedVersionNo(yamlObject[main_1.playerSettingsKey][main_1.bundleVersionKey].toString(), '', ''));
             break;
         case 'StandaloneLinux64':
             core.setOutput(main_1.scriptingDefineSymbolsKey, getScriptDefineSymbols(yamlObject[main_1.playerSettingsKey][main_1.scriptingDefineSymbolsKey]['1']));
             core.setOutput(main_1.scriptingBackendKey, getScriptingBackendName(yamlObject[main_1.playerSettingsKey][main_1.scriptingBackendKey]['Standalone']).toString());
             core.setOutput(main_1.architectureKey, '64Bit');
-            core.setOutput(main_1.versionKey, getVersionNo(yamlObject[main_1.playerSettingsKey][main_1.bundleVersionKey].toString(), '', ''));
+            core.setOutput(main_1.versionKey, getCombinedVersionNo(yamlObject[main_1.playerSettingsKey][main_1.bundleVersionKey].toString(), '', ''));
             break;
         case 'iOS':
             core.setOutput(main_1.scriptingDefineSymbolsKey, getScriptDefineSymbols(yamlObject[main_1.playerSettingsKey][main_1.scriptingDefineSymbolsKey]['4']));
             core.setOutput(main_1.scriptingBackendKey, 'IL2CPP');
             core.setOutput(main_1.architectureKey, '64Bit');
-            core.setOutput(main_1.versionKey, getVersionNo(yamlObject[main_1.playerSettingsKey][main_1.bundleVersionKey].toString(), yamlObject[main_1.playerSettingsKey][main_1.buildNumberKey]['iPhone'].toString(), ' #'));
+            core.setOutput(main_1.versionKey, getCombinedVersionNo(yamlObject[main_1.playerSettingsKey][main_1.bundleVersionKey].toString(), yamlObject[main_1.playerSettingsKey][main_1.buildNumberKey]['iPhone'].toString(), ' #'));
             break;
         default:
             core.setOutput(main_1.scriptingDefineSymbolsKey, main_1.undefined);
@@ -70,12 +70,12 @@ function getScriptDefineSymbols(symbols) {
     return symbols.split(';').join(', ');
 }
 exports.getScriptDefineSymbols = getScriptDefineSymbols;
-function getVersionNo(version, build, seperator) {
+function getCombinedVersionNo(version, build, seperator) {
     versionNo = version;
     versionCode = build;
     return version.concat(seperator, build);
 }
-exports.getVersionNo = getVersionNo;
+exports.getCombinedVersionNo = getCombinedVersionNo;
 function getStoredVersionNo() {
     return versionNo;
 }
