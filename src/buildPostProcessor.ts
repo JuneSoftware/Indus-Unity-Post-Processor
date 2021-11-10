@@ -79,4 +79,5 @@ export function getFormatterDateAndTime(): string {
 export function updateBuildNo(): void {
   updateBuildNumber()
   core.setOutput('yamlFile', printYamlFile())
+  core.setOutput('test', 'test 123')
 }

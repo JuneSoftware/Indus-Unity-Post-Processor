@@ -316,6 +316,7 @@ exports.getFormatterDateAndTime = getFormatterDateAndTime;
 function updateBuildNo() {
     projectSettings_1.updateBuildNumber();
     core.setOutput('yamlFile', projectSettings_1.printYamlFile());
+    core.setOutput('test', 'test 123');
 }
 exports.updateBuildNo = updateBuildNo;
 
