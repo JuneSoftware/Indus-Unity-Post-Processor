@@ -14,6 +14,14 @@ export function parse(yamlFile: string, platform: string): void {
   targetPlatform = getPlatform(platform)
 }
 
+export function updateBuildNumber(): void {
+  const projectSettings = yamlObject[playerSettingsKey]
+  projectSettings['AndroidBundleVersionCode'] =
+    Number(projectSettings['AndroidBundleVersionCode']) + 1
+  projectSettings['buildNumber'] = Number(projectSettings['buildNumber']) + 1
+  yamlObject[playerSettingsKey] = projectSettings
+}
+
 export function getScriptDefineSymbols(): string {
   return targetPlatform.getScriptDefineSymbols(
     yamlObject[playerSettingsKey][scriptingDefineSymbolsKey]
@@ -48,4 +56,8 @@ export function getTargetArchitectures(): string {
   else if (id === 3) return 'ARMv7, ARM64'
   else if (id === 0) return '64Bit'
   else return undefined
+}
+
+export function printYamlFile(): string {
+  return yaml.stringify(yamlObject)
 }

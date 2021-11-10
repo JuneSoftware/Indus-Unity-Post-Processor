@@ -24,14 +24,14 @@ jobs:
           buildPath: 'build/Android'
           s3BucketName: ${{ secrets.AWS_BUCKET_NAME }}
           buildName: 'Sample'
-      - name: Sync to S3
-        uses: JuneSoftware/simple-s3-upload-action@master
-        with:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_S3_BUCKET: ${{ secrets.AWS_BUCKET_NAME }}
-          SOURCE_DIR: 'build'
-          DEST_DIR: 'Android'
+      # - name: Sync to S3
+      #   uses: JuneSoftware/simple-s3-upload-action@master
+      #   with:
+      #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #     AWS_S3_BUCKET: ${{ secrets.AWS_BUCKET_NAME }}
+      #     SOURCE_DIR: 'build'
+      #     DEST_DIR: 'Android'
       - name: List all files
         id: listFiles
         run: |

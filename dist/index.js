@@ -145,7 +145,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.getTargetArchitectures = exports.getScriptingBackend = exports.getBuildNo = exports.getVersionNo = exports.getCombinedVersionNo = exports.getScriptDefineSymbols = exports.parse = void 0;
+exports.printYamlFile = exports.getTargetArchitectures = exports.getScriptingBackend = exports.getBuildNo = exports.getVersionNo = exports.getCombinedVersionNo = exports.getScriptDefineSymbols = exports.updateBuildNumber = exports.parse = void 0;
 const yaml_1 = __importDefault(__nccwpck_require__(552));
 const TargetPlatform_1 = __nccwpck_require__(102);
 const playerSettingsKey = 'PlayerSettings';
@@ -159,6 +159,14 @@ function parse(yamlFile, platform) {
     targetPlatform = TargetPlatform_1.getPlatform(platform);
 }
 exports.parse = parse;
+function updateBuildNumber() {
+    const projectSettings = yamlObject[playerSettingsKey];
+    projectSettings['AndroidBundleVersionCode'] =
+        Number(projectSettings['AndroidBundleVersionCode']) + 1;
+    projectSettings['buildNumber'] = Number(projectSettings['buildNumber']) + 1;
+    yamlObject[playerSettingsKey] = projectSettings;
+}
+exports.updateBuildNumber = updateBuildNumber;
 function getScriptDefineSymbols() {
     return targetPlatform.getScriptDefineSymbols(yamlObject[playerSettingsKey][scriptingDefineSymbolsKey]);
 }
@@ -199,6 +207,10 @@ function getTargetArchitectures() {
         return undefined;
 }
 exports.getTargetArchitectures = getTargetArchitectures;
+function printYamlFile() {
+    return yaml_1.default.stringify(yamlObject);
+}
+exports.printYamlFile = printYamlFile;
 
 
 /***/ }),
@@ -231,7 +243,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.getFormatterDateAndTime = exports.getFormattedVersionNoForPath = exports.getFormattedVersionNoForBinary = exports.updateBuildName = exports.updateBuildPath = void 0;
+exports.updateBuildNo = exports.getFormatterDateAndTime = exports.getFormattedVersionNoForPath = exports.getFormattedVersionNoForBinary = exports.updateBuildName = exports.updateBuildPath = void 0;
 const core = __importStar(__nccwpck_require__(186));
 const path_1 = __importDefault(__nccwpck_require__(622));
 const fs_1 = __importDefault(__nccwpck_require__(747));
@@ -301,6 +313,11 @@ function getFormatterDateAndTime() {
         .join('_')})`;
 }
 exports.getFormatterDateAndTime = getFormatterDateAndTime;
+function updateBuildNo() {
+    projectSettings_1.updateBuildNumber();
+    core.debug(projectSettings_1.printYamlFile());
+}
+exports.updateBuildNo = updateBuildNo;
 
 
 /***/ }),
@@ -402,6 +419,7 @@ function run() {
             const yamlFile = fs_1.default.readFileSync(projectSettingsPath, 'utf8'); //Load the project settings file
             exportBuildProperties_1.exportProperties(yamlFile, platform);
             buildPostProcessor_1.updateBuildPath(buildPath, platform);
+            buildPostProcessor_1.updateBuildNo();
         }
         catch (error) {
             core.setFailed(error.message);

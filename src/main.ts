@@ -1,7 +1,7 @@
 import * as core from '@actions/core'
 import fs from 'fs'
 import {exportProperties} from './exportBuildProperties'
-import {updateBuildPath} from './buildPostProcessor'
+import {updateBuildNo, updateBuildPath} from './buildPostProcessor'
 
 const targetPlatformInput = 'platform'
 const projectSettingsPathInput = 'projectSettingsPath'
@@ -15,6 +15,7 @@ async function run(): Promise<void> {
     const yamlFile = fs.readFileSync(projectSettingsPath, 'utf8') //Load the project settings file
     exportProperties(yamlFile, platform)
     updateBuildPath(buildPath, platform)
+    updateBuildNo()
   } catch (error) {
     core.setFailed((error as Error).message)
   }
