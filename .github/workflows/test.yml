@@ -29,6 +29,10 @@ jobs:
         uses: zoexx/github-action-json-file-properties@release
         with:
           file_path: "BuildReport.json"
+      - run: |
+          echo ${{steps.json_properties.outputs.combinedVersionNo}}
+          echo ${{steps.json_properties.outputs.release}}
+
       # - name: Sync to S3
       #   uses: JuneSoftware/simple-s3-upload-action@master
       #   with:
