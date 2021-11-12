@@ -32,6 +32,8 @@ jobs:
           git fetch origin
           git merge origin/main
           git push
+      - name: Add changes
+        run: |
           git add .
           git commit -m "Generated"
           git push
