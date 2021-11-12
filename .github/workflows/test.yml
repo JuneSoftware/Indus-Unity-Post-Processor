@@ -21,6 +21,15 @@ jobs:
       - name: Set Branch Name
         id: branchName
         run: echo ::set-output name=branchName::${GITHUB_REF#refs/*/}
+      - name: Setup Git Config
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+      - name: Merge from develop
+        run: |
+          git merge origin/builds
+          git push
+
       # - name: push
       #   uses: github-actions-x/commit@v2.8
       #   with:
