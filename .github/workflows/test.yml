@@ -20,11 +20,13 @@ jobs:
           ref: builds
       - name: Set Branch Name
         id: branchName
-        run: echo ::set-output name=branchName::${GITHUB_REF#refs/*/}
+        run: |
+          echo ::set-output name=branchName::${GITHUB_REF#refs/*/}
       - name: Setup Git Config
         run: |
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
+          echo branchName.branchName
       - name: Merge from develop
         run: |
           git merge origin/main
@@ -35,6 +37,7 @@ jobs:
         uses: peter-evans/create-pull-request@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          base: main
           commit-message: Update Build Number
           signoff: false
           branch: builds
