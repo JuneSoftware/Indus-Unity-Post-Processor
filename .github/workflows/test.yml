@@ -44,7 +44,7 @@ jobs:
         uses: thomaseizinger/create-pull-request@master
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          head: ${{ github.ref }}
+          head: builds
           base: master
           title: "An automatically created PR!"
 
