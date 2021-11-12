@@ -37,7 +37,7 @@ jobs:
         run: |
           date > generated.txt
           git add .
-          git commit -m "Generated"
+          git commit -m "generated"
           git push
 
       - name: Create Pull Request
