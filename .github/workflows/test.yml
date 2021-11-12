@@ -13,26 +13,37 @@ jobs:
           npm run all
   test: # make sure the action works on a clean machine without building
     runs-on: ubuntu-latest
-    steps:
+    steps: 
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Default Action  
-        uses: ./
         with:
-          platform: 'Android'
-          projectSettingsPath: 'ProjectSettings/ProjectSettings.asset'
-          buildPath: 'build/Android'
-          s3BucketName: ${{ secrets.AWS_BUCKET_NAME }}
-          buildName: 'Sample'
-      - name: get properties
-        id: json_properties
-        uses: zoexx/github-action-json-file-properties@release
-        with:
-          file_path: "BuildReport.json"
-      - run: |
-          echo ${{steps.json_properties.outputs.combinedVersionNo}}
-          echo ${{steps.json_properties.outputs.release}}
-
+          ref: builds
+      - name: Set Branch Name
+        id: branchName
+        run: echo ::set-output name=branchName::${GITHUB_REF#refs/*/}
+      # - name: push
+      #   uses: github-actions-x/commit@v2.8
+      #   with:
+      #     github-token: ${{ secrets.GITHUB_TOKEN }}
+      #     push-branch: builds
+      #     commit-message: '${{ matrix.node-version }} adds auto-generated benchmarks and bar graph'
+      #     rebase: 'true' # pull and rebase before commit
+      # - name: Default Action  
+      #   uses: ./
+      #   with:
+      #     platform: 'Android'
+      #     projectSettingsPath: 'ProjectSettings/ProjectSettings.asset'
+      #     buildPath: 'build/Android'
+      #     s3BucketName: ${{ secrets.AWS_BUCKET_NAME }}
+      #     buildName: 'Sample'
+      # - name: get properties
+      #   id: json_properties
+      #   uses: zoexx/github-action-json-file-properties@release
+      #   with:
+      #     file_path: "BuildReport.json"
+      # - run: |
+      #     echo ${{steps.json_properties.outputs.combinedVersionNo}}
+      #     echo ${{steps.json_properties.outputs.release}}
       # - name: Sync to S3
       #   uses: JuneSoftware/simple-s3-upload-action@master
       #   with:
