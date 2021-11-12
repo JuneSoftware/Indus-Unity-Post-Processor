@@ -24,9 +24,12 @@ jobs:
           echo ::set-output name=branchName::${GITHUB_REF#refs/*/}
       - name: Setup Git Config
         run: |
-          git config user.name "GitHub Actions Bot"
-          git config user.email "<>"
-          echo ${{ steps.branchName.outputs.branchName }}
+          date > generated.txt
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "generated"
+          git push
       - name: Merge from develop
         run: |
           git merge origin/main
