@@ -27,8 +27,24 @@ jobs:
           git config user.email "<>"
       - name: Merge from develop
         run: |
-          git merge origin/builds
+          git merge origin/main
           git push
+
+      - name: Create Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: Update Build Number
+          signoff: false
+          branch: builds
+          delete-branch: false
+          title: '[Example] Build Number Update'
+          body: |
+            Update report
+            - Updated with new build number
+            - Updated Changelog release date
+          draft: false
 
       # - name: push
       #   uses: github-actions-x/commit@v2.8
