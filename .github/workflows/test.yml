@@ -24,7 +24,6 @@ jobs:
           echo ::set-output name=branchName::${GITHUB_REF#refs/*/}
       - name: Setup Git Config
         run: |
-          date > generated.txt
           git config user.name github-actions
           git config user.email github-actions@github.com
       - name: Merge from develop
@@ -34,6 +33,7 @@ jobs:
           git push
       - name: Add changes
         run: |
+          date > generated.txt
           git add .
           git commit -m "Generated"
           git push
