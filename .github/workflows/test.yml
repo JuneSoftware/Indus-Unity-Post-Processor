@@ -45,6 +45,7 @@ jobs:
         uses: peter-evans/create-pull-request@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          base: main
           commit-message: Update Build Number
           signoff: false
           branch: builds
