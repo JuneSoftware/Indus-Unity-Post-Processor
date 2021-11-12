@@ -26,7 +26,7 @@ jobs:
         run: |
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
-          echo ${steps.branchName.outputs.branchName}
+          echo ${{ steps.branchName.outputs.branchName }}
       - name: Merge from develop
         run: |
           git merge origin/main
