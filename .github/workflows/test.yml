@@ -45,7 +45,7 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           head: builds
-          base: master
+          base: main
           title: "An automatically created PR!"
 
       # - name: push
