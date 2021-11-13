@@ -25,7 +25,8 @@ jobs:
           git config user.email github-actions@github.com
       - name: Merge from develop
         run: |
-          git pull origin ${GITHUB_REF#refs/*/}
+          # git fetch origin
+          git merge origin/${GITHUB_REF#refs/*/}
           git push
       - name: Add changes
         id: pushChanges
