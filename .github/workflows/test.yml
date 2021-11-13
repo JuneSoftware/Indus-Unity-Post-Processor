@@ -3,6 +3,24 @@ on:
   workflow_dispatch: {}
 
 jobs:
+  updateBuilds: # make sure the action works on a clean machine without building
+    name: Update builds ${{ github.ref }}
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: builds
+      - name: Setup Git Config
+        id: setupGit
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+      - name: Merge from ${{ github.ref }}
+        run: |
+          git fetch origin
+          git reset --hard origin/${GITHUB_REF#refs/*/}
+          git push -f origin builds
   test: # make sure the action works on a clean machine without building
     name: Build for ${{ matrix.targetPlatform }}
     runs-on: ubuntu-latest
@@ -26,11 +44,6 @@ jobs:
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-      - name: Merge from ${GITHUB_REF#refs/*/}
-        run: |
-          git fetch origin
-          git reset --hard origin/${GITHUB_REF#refs/*/}
-          git push -f origin builds
       - name: Add changes
         id: pushChanges
         run: |
