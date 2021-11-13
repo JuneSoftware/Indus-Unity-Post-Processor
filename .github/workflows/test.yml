@@ -53,7 +53,9 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: changes
-          path: generated.txt
+          path: |
+            generated.txt
+            ProjectSettings\ProjectSettings.asset
           retention-days: 5
   postBuilds: # make sure the action works on a clean machine without building
     needs: runBuilds
