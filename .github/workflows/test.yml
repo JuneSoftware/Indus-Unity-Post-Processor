@@ -92,7 +92,7 @@ jobs:
           committer: GitHub <noreply@github.com>
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           signoff: false
-          base: steps.branchName.outputs.branchName
+          base: ${{ steps.branchName.outputs.branchName }}
           branch: builds
           delete-branch: false
           title: 'Update build number'
