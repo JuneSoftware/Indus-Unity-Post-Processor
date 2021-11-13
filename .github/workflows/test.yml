@@ -89,8 +89,8 @@ jobs:
           committer: GitHub <noreply@github.com>
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           signoff: false
-          base: ${{ github.ref }}
-          branch: builds
+          branch: ${{ github.ref }}
+          base: builds
           delete-branch: false
           title: 'Update build number'
           body: |
