@@ -3,8 +3,8 @@ on:
   workflow_dispatch: {}
 
 jobs:
-  updateBuilds: # make sure the action works on a clean machine without building
-    name: Update builds ${{ github.ref }}
+  updateBuilds: #To udpate the builds branch
+    name: Update builds branch
     runs-on: ubuntu-latest
     steps: 
       - name: Checkout
@@ -21,7 +21,7 @@ jobs:
           git fetch origin
           git reset --hard origin/${GITHUB_REF#refs/*/}
           git push -f origin builds
-  test: # make sure the action works on a clean machine without building
+  runBuilds: # make sure the action works on a clean machine without building
     name: Build for ${{ matrix.targetPlatform }}
     runs-on: ubuntu-latest
     strategy:
@@ -35,10 +35,10 @@ jobs:
           - iOS
           - Android
     steps: 
-      # - name: Checkout
-      #   uses: actions/checkout@v2
-      #   with:
-      #     ref: builds
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: builds
       - name: Setup Git Config
         id: setupGit
         run: |
@@ -47,8 +47,34 @@ jobs:
       - name: Add changes
         id: pushChanges
         run: |
-          git pull
           date > generated.txt
+      - name: 'Upload Changes'
+        uses: actions/upload-artifact@v2
+        with:
+          name: changes
+          path: generated.txt
+          retention-days: 5
+  postBuilds: # make sure the action works on a clean machine without building
+    name: Publish changes
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: builds
+      - name: Setup Git Config
+        id: setupGit
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git pull
+      - name: Download changes
+        uses: actions/download-artifact@v2
+        with:
+          name: changes
+      - name: Add changes
+        id: pushChanges
+        run: |
           git add .
           git commit -m "generated"
           git push
@@ -60,39 +86,3 @@ jobs:
           head: builds
           base: ${{ github.ref }}
           title: "An automatically created PR!"
-
-      # - name: push
-      #   uses: github-actions-x/commit@v2.8
-      #   with:
-      #     github-token: ${{ secrets.GITHUB_TOKEN }}
-      #     push-branch: builds
-      #     commit-message: '${{ matrix.node-version }} adds auto-generated benchmarks and bar graph'
-      #     rebase: 'true' # pull and rebase before commit
-      # - name: Default Action  
-      #   uses: ./
-      #   with:
-      #     platform: 'Android'
-      #     projectSettingsPath: 'ProjectSettings/ProjectSettings.asset'
-      #     buildPath: 'build/Android'
-      #     s3BucketName: ${{ secrets.AWS_BUCKET_NAME }}
-      #     buildName: 'Sample'
-      # - name: get properties
-      #   id: json_properties
-      #   uses: zoexx/github-action-json-file-properties@release
-      #   with:
-      #     file_path: "BuildReport.json"
-      # - run: |
-      #     echo ${{steps.json_properties.outputs.combinedVersionNo}}
-      #     echo ${{steps.json_properties.outputs.release}}
-      # - name: Sync to S3
-      #   uses: JuneSoftware/simple-s3-upload-action@master
-      #   with:
-      #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      #     AWS_S3_BUCKET: ${{ secrets.AWS_BUCKET_NAME }}
-      #     SOURCE_DIR: 'build'
-      #     DEST_DIR: 'Android'
-      # - name: List all files
-      #   id: listFiles
-      #   run: |
-      #     ls -R
