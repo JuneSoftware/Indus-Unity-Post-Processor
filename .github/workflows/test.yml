@@ -89,4 +89,4 @@ jobs:
           pr_label: "build"                                 # Comma-separated list (no spaces)
           pr_draft: false                                   # Creates pull request as draft
           pr_allow_empty: false                             # Creates pull request even if there are no changes
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.REPO_SCOPED_TOKEN }}
