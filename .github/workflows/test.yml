@@ -3,16 +3,19 @@ on:
   workflow_dispatch: {}
 
 jobs:
-  build: # make sure build/ci work properly
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - run: |
-          npm install
-      - run: |
-          npm run all
   test: # make sure the action works on a clean machine without building
+    name: Build for ${{ matrix.targetPlatform }}
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        targetPlatform:
+          # - StandaloneOSX
+          # - StandaloneWindows
+          # - StandaloneWindows64
+          # - StandaloneLinux64
+          # - iOS
+          - Android
     steps: 
       - name: Checkout
         uses: actions/checkout@v2
@@ -23,7 +26,7 @@ jobs:
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-      - name: Merge from develop
+      - name: Merge from ${GITHUB_REF#refs/*/}
         run: |
           git fetch origin
           git reset --hard origin/${GITHUB_REF#refs/*/}
