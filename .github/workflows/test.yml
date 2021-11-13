@@ -26,6 +26,7 @@ jobs:
       - name: Merge from develop
         run: |
           git fetch origin
+          git config pull.ff only
           git pull origin main
           git push
       - name: Add changes
