@@ -22,6 +22,7 @@ jobs:
           git reset --hard origin/${GITHUB_REF#refs/*/}
           git push -f origin builds
   runBuilds: # make sure the action works on a clean machine without building
+    needs: updateBuilds
     name: Build for ${{ matrix.targetPlatform }}
     runs-on: ubuntu-latest
     strategy:
@@ -55,6 +56,7 @@ jobs:
           path: generated.txt
           retention-days: 5
   postBuilds: # make sure the action works on a clean machine without building
+    needs: runBuilds
     name: Publish changes
     runs-on: ubuntu-latest
     steps: 
