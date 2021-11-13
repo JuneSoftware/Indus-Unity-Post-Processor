@@ -34,6 +34,7 @@ jobs:
       - name: Add changes
         id: pushChanges
         run: |
+          git pull
           date > generated.txt
           git add .
           git commit -m "generated"
