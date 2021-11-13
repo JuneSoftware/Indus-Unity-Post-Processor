@@ -5,8 +5,8 @@ on:
 
 jobs:
   autoMerge: 
-  name: Auto Merge PR
-  runs-on: ubuntu-latest
+    name: Auto Merge PR
+    runs-on: ubuntu-latest
     steps: 
       - name: Auto Merge
         uses: "pascalgn/automerge-action@v0.14.3"
