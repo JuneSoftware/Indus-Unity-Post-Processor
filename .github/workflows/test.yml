@@ -13,8 +13,8 @@ jobs:
           # - StandaloneOSX
           # - StandaloneWindows
           # - StandaloneWindows64
-          # - StandaloneLinux64
-          # - iOS
+          - StandaloneLinux64
+          - iOS
           - Android
     steps: 
       - name: Checkout
