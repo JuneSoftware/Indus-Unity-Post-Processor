@@ -55,7 +55,7 @@ jobs:
           name: changes
           path: |
             generated.txt
-            ProjectSettings\ProjectSettings.asset
+            ProjectSettings/ProjectSettings.asset
           retention-days: 5
   postBuilds: # make sure the action works on a clean machine without building
     needs: runBuilds
