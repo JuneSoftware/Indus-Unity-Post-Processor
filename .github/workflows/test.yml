@@ -91,7 +91,7 @@ jobs:
           signoff: false
           base: ${{ github.ref }}
           branch: builds
-          delete-branch: true
+          delete-branch: false
           title: 'Update build number'
           body: |
             Update report
