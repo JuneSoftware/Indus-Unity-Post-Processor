@@ -80,11 +80,29 @@ jobs:
           git add .
           git commit -m "generated"
           git push
-
-      - name: Create pull request
-        uses: thomaseizinger/create-pull-request@master
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          head: builds
-          base: ${{ github.ref }}
-          title: "An automatically created PR!"
+      - name: Create Pull Request
+              id: cpr
+              uses: peter-evans/create-pull-request@v3
+              with:
+                token: ${{ secrets.GITHUB_TOKEN }}
+                commit-message: Update build
+                committer: GitHub <noreply@github.com>
+                author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
+                signoff: false
+                base: ${{ github.ref }}
+                branch: builds
+                delete-branch: true
+                title: 'Update build number'
+                body: |
+                  Update report
+                  - Build number
+                labels: |
+                  build
+                draft: false
+      # - name: Create pull request
+      #   uses: thomaseizinger/create-pull-request@master
+      #   with:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     head: builds
+      #     base: ${{ github.ref }}
+      #     title: "An automatically created PR!"
