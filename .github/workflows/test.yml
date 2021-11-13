@@ -27,6 +27,7 @@ jobs:
         run: |
           git fetch origin
           git reset --hard origin/${GITHUB_REF#refs/*/}
+          git pull
       - name: Add changes
         id: pushChanges
         run: |
