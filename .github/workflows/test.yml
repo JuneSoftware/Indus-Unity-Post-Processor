@@ -26,7 +26,7 @@ jobs:
       - name: Merge from develop
         run: |
           # git fetch origin
-          git merge origin/${GITHUB_REF#refs/*/}
+          git merge origin/main
           git push
       - name: Add changes
         id: pushChanges
@@ -36,13 +36,13 @@ jobs:
           git commit -m "generated"
           git push
 
-      - name: Create pull request
-        uses: thomaseizinger/create-pull-request@master
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          head: builds
-          base: ${GITHUB_REF#refs/*/}
-          title: "An automatically created PR!"
+      # - name: Create pull request
+      #   uses: thomaseizinger/create-pull-request@master
+      #   with:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     head: builds
+      #     base: ${GITHUB_REF#refs/*/}
+      #     title: "An automatically created PR!"
 
       # - name: push
       #   uses: github-actions-x/commit@v2.8
