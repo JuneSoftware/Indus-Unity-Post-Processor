@@ -83,25 +83,16 @@ jobs:
           git add .
           git commit -m "generated"
           git push
-      - name: Create Pull Request
-        id: cpr
-        uses: peter-evans/create-pull-request@v3.11.0
+      - name: Pull Request
+        uses: repo-sync/pull-request@v2
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: Update build
-          committer: GitHub <noreply@github.com>
-          author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
-          signoff: false
-          base: ${{ steps.branchName.outputs.branchName }}
-          branch: builds
-          delete-branch: false
-          title: 'Update build number'
-          body: |
-            Update report
-            - Build number
-          labels: |
-            build
-          draft: false
+          source_branch: "builds"                           # If blank, default: triggered branch
+          destination_branch: ${{ github.ref }}             # If blank, default: master
+          pr_title: "Build Number Update"                   # Title of pull request  
+          pr_label: "build"                                 # Comma-separated list (no spaces)
+          pr_draft: false                                   # Creates pull request as draft
+          pr_allow_empty: false                             # Creates pull request even if there are no changes
+          github_token: ${{ secrets.GITHUB_TOKEN }}
       # - name: Create pull request
       #   uses: thomaseizinger/create-pull-request@master
       #   with:
